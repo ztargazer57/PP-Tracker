@@ -1,0 +1,87 @@
+.routine-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px;
+  padding-left: 10px;
+  border-radius: 5rem;
+  background: #121212;
+  font-size: 11px;
+  cursor: pointer;
+  user-select: none;
+  opacity: 1;
+  transition:
+    transform 0.7s linear,
+    background 0.3s,
+    opacity 1s;
+}
+
+/* Checkbox look */
+.checkbox {
+  width: 25px;
+  height: 23px;
+  padding: 5px;
+  text-align: start;
+  margin-left: auto;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  background: #121212;
+
+}
+
+/* Completed state */
+.routine-item.done {
+border:#22c55e solid 1px;
+  background: #22c55e;
+  opacity: 0.3;
+}
+
+.checkbox.done {
+}
+
+.checkbox.done::before {
+  content: "✓";
+  color: #16a34a;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* While holding (charging effect) */
+.routine-item.holding {
+  transform: scale(1.05);
+}
+
+.progressIn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 5rem;
+  z-index: -1;
+  width: 0%;
+  background: #22c55e;
+}
+
+.progressOut {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 101%;
+  width: 0%;
+  border-radius: 5rem;
+  z-index: -1;
+  background: #161616;
+}
+
+.routine-item.holding .progressIn {
+  width: 100%;
+  transition: width 1.3s ease-out;
+}
+
+.routine-item.holding .progressOut {
+  width: 100%;
+  transition: width 1.3s ease-out;
+}

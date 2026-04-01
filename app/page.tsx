@@ -1,65 +1,33 @@
-import Image from "next/image";
+import DailyRoutineWidget from "@/components/DailyRoutineWidget";
+import Streak from "@/components/Streak";
+import { Card } from "@/components/ui/card";
+import { Textarea} from "@/components/ui/textarea";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="w-full min-h-screen grid grid-cols-1 gap-7 p-5 lg:grid-cols-[330px_1fr]">
+      <Card className="min-h-fit h-full px-5 grid  gap-5 grid-cols-1 md:grid-cols-2  lg:grid-cols-1">
+        <div className="w-full mx-auto max-w-85 sm:max-w-full md:max-w-full lg:max-w-full max-h-fit grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-1">
+          <DailyRoutineWidget />
+          <Streak />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        <Card className=" w-full min-h-80 h-full "></Card>
+      </Card>
+      <div className="grid grid-cols-1 place-items-center gap-7 sm:grid-cols-2">
+        <Card className="min-h-90 w-full max-w-85 sm:max-w-full md:max-w-full lg:max-w-full p-0">
+          <img
+            src="/uploads/2026-03-28"
+            alt="Placeholder"
+            className="h-90 object-cover hover:scale-105 transition-all duration-300"
+          />
+          <div className="absolute flex justify-items-center h-10 min-w-fit w-36  rounded-tl-lg rounded-bl-0 rounded-tr-2xl rounded-br-2xl bg-black/60 text-xl shadow-md px-3 py-2" >Favorites</div>
+        </Card>
+        <Card className="min-h-90 w-full max-w-85 sm:max-w-full md:max-w-full lg:max-w-full grid grid-cols-1 gap-0 p-0">
+            <Textarea className="bg-input/0! transition-none! focus-visible:ring-0! focus-visible:border-0! border-none min-h-70 sm:max-w-full md:max-w-full lg:max-w-full p-7"></Textarea>
+            <div className="mt-auto ml-auto h-10 min-w-fit w-38 rounded-tr-0 rounded-br-lg rounded-tl-3xl rounded-bl-3xl bg-gray-400/60 text-black text-xl shadow-md px-3 py-2 flex justify-end">Never Forget</div>
+        </Card>
+        <Card className="min-h-90 w-full max-w-full sm:max-w-full md:max-w-full lg:max-w-full p-0 sm:col-span-2" />
+      </div>
     </div>
   );
 }

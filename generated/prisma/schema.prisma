@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model DailyRoutine {
+  id               Int      @id @default(autoincrement())
+  date             DateTime @unique
+  gestureDrawing   Boolean  @default(false)
+  construction     Boolean  @default(false)
+  targetedPractice Boolean  @default(false)
+}
+
+model WeeklySubmission {
+  id Int @id @default(autoincrement())
+
+  title       String?
+  description String?
+  image       String?
+  hoursSpent  Float?
+
+  date       DateTime
+  year       Int
+  weekNumber Int
+
+  monthlyReviews MonthlyReview[]
+
+  @@unique([year, weekNumber], name: "year_weekNumber")
+}
+
+model MonthlyReview {
+  id          Int     @id @default(autoincrement())
+  month       String
+  notes       String?
+  bestPieceId Int?
+
+  bestPiece WeeklySubmission? @relation(fields: [bestPieceId], references: [id])
+}
