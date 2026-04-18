@@ -44,7 +44,7 @@ export default function WeeklySubmissionsPage() {
       hoursSpent: undefined,
       description: "",
       date: new Date(),
-      weekNumber: "",
+      weekNumber: undefined,
       image: undefined,
     },
   });
