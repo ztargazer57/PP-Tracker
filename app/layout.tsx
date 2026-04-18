@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { Sour_Gummy } from "next/font/google";
+import { Sour_Gummy, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import FloatingSidebar from "@/components/FloatingSidebar";
 
-const sour_gummy = Sour_Gummy({
-  variable: "--font-sour-gummy",
+const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+const sour_gummy = Sour_Gummy({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "PP Tracker",
@@ -19,34 +20,33 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`h-full antialiased`}
-    >
-      <body className={sour_gummy.className}>
+    <html lang="en" suppressHydrationWarning className="h-full antialiased">
+      <body className={`${space_grotesk.className} relative`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-          <div className="flex min-h-screen w-full">
-              <AppSidebar />
-                <main className="flex-1 flex flex-col w-full">
-              <Navbar />
-              <SidebarTrigger />
-              <div className="flex-1 flex justify-center">
-                <div className="w-full max-w-6xl">{children}</div>
-              </div>
-            </main>
+          <div className="fixed inset-0 -z-10">
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,#0a0a0a,#000000_40%,#0a0a0a)]" />
+            <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_60%)]" />
+            <div className="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.8))]" />
           </div>
-          </SidebarProvider>
+
+          <div className="min-h-screen w-full flex flex-col relative">
+            <Navbar />
+            <div className="flex-1 flex justify-center pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pl-28">
+              <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+                {children}
+              </div>
+            </div>
+            <FloatingSidebar />
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -14,6 +14,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Extra
+ * 
+ */
+export type Extra = $Result.DefaultSelection<Prisma.$ExtraPayload>
+/**
+ * Model SavingsEntry
+ * 
+ */
+export type SavingsEntry = $Result.DefaultSelection<Prisma.$SavingsEntryPayload>
+/**
  * Model DailyRoutine
  * 
  */
@@ -38,8 +48,8 @@ export type MonthlyReview = $Result.DefaultSelection<Prisma.$MonthlyReviewPayloa
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more DailyRoutines
- * const dailyRoutines = await prisma.dailyRoutine.findMany()
+ * // Fetch zero or more Extras
+ * const extras = await prisma.extra.findMany()
  * ```
  *
  *
@@ -61,8 +71,8 @@ export class PrismaClient<
    * const prisma = new PrismaClient({
    *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
-   * // Fetch zero or more DailyRoutines
-   * const dailyRoutines = await prisma.dailyRoutine.findMany()
+   * // Fetch zero or more Extras
+   * const extras = await prisma.extra.findMany()
    * ```
    *
    *
@@ -151,6 +161,26 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.extra`: Exposes CRUD operations for the **Extra** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Extras
+    * const extras = await prisma.extra.findMany()
+    * ```
+    */
+  get extra(): Prisma.ExtraDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.savingsEntry`: Exposes CRUD operations for the **SavingsEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SavingsEntries
+    * const savingsEntries = await prisma.savingsEntry.findMany()
+    * ```
+    */
+  get savingsEntry(): Prisma.SavingsEntryDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.dailyRoutine`: Exposes CRUD operations for the **DailyRoutine** model.
     * Example usage:
     * ```ts
@@ -229,8 +259,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.5.0
-   * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+   * Prisma Client JS version: 7.7.0
+   * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
    */
   export type PrismaVersion = {
     client: string
@@ -613,6 +643,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Extra: 'Extra',
+    SavingsEntry: 'SavingsEntry',
     DailyRoutine: 'DailyRoutine',
     WeeklySubmission: 'WeeklySubmission',
     MonthlyReview: 'MonthlyReview'
@@ -631,10 +663,142 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "dailyRoutine" | "weeklySubmission" | "monthlyReview"
+      modelProps: "extra" | "savingsEntry" | "dailyRoutine" | "weeklySubmission" | "monthlyReview"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Extra: {
+        payload: Prisma.$ExtraPayload<ExtArgs>
+        fields: Prisma.ExtraFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExtraFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExtraFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>
+          }
+          findFirst: {
+            args: Prisma.ExtraFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExtraFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>
+          }
+          findMany: {
+            args: Prisma.ExtraFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>[]
+          }
+          create: {
+            args: Prisma.ExtraCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>
+          }
+          createMany: {
+            args: Prisma.ExtraCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ExtraDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>
+          }
+          update: {
+            args: Prisma.ExtraUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>
+          }
+          deleteMany: {
+            args: Prisma.ExtraDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExtraUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ExtraUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtraPayload>
+          }
+          aggregate: {
+            args: Prisma.ExtraAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExtra>
+          }
+          groupBy: {
+            args: Prisma.ExtraGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExtraGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExtraCountArgs<ExtArgs>
+            result: $Utils.Optional<ExtraCountAggregateOutputType> | number
+          }
+        }
+      }
+      SavingsEntry: {
+        payload: Prisma.$SavingsEntryPayload<ExtArgs>
+        fields: Prisma.SavingsEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SavingsEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SavingsEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.SavingsEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SavingsEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>
+          }
+          findMany: {
+            args: Prisma.SavingsEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>[]
+          }
+          create: {
+            args: Prisma.SavingsEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>
+          }
+          createMany: {
+            args: Prisma.SavingsEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SavingsEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>
+          }
+          update: {
+            args: Prisma.SavingsEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.SavingsEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SavingsEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SavingsEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.SavingsEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavingsEntry>
+          }
+          groupBy: {
+            args: Prisma.SavingsEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavingsEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SavingsEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<SavingsEntryCountAggregateOutputType> | number
+          }
+        }
+      }
       DailyRoutine: {
         payload: Prisma.$DailyRoutinePayload<ExtArgs>
         fields: Prisma.DailyRoutineFieldRefs
@@ -941,6 +1105,8 @@ export namespace Prisma {
     comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
+    extra?: ExtraOmit
+    savingsEntry?: SavingsEntryOmit
     dailyRoutine?: DailyRoutineOmit
     weeklySubmission?: WeeklySubmissionOmit
     monthlyReview?: MonthlyReviewOmit
@@ -1019,40 +1185,1838 @@ export namespace Prisma {
    */
 
 
-  /**
-   * Count Type WeeklySubmissionCountOutputType
-   */
-
-  export type WeeklySubmissionCountOutputType = {
-    monthlyReviews: number
-  }
-
-  export type WeeklySubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    monthlyReviews?: boolean | WeeklySubmissionCountOutputTypeCountMonthlyReviewsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * WeeklySubmissionCountOutputType without action
-   */
-  export type WeeklySubmissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WeeklySubmissionCountOutputType
-     */
-    select?: WeeklySubmissionCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * WeeklySubmissionCountOutputType without action
-   */
-  export type WeeklySubmissionCountOutputTypeCountMonthlyReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MonthlyReviewWhereInput
-  }
-
 
   /**
    * Models
    */
+
+  /**
+   * Model Extra
+   */
+
+  export type AggregateExtra = {
+    _count: ExtraCountAggregateOutputType | null
+    _avg: ExtraAvgAggregateOutputType | null
+    _sum: ExtraSumAggregateOutputType | null
+    _min: ExtraMinAggregateOutputType | null
+    _max: ExtraMaxAggregateOutputType | null
+  }
+
+  export type ExtraAvgAggregateOutputType = {
+    id: number | null
+    streak: number | null
+  }
+
+  export type ExtraSumAggregateOutputType = {
+    id: number | null
+    streak: number | null
+  }
+
+  export type ExtraMinAggregateOutputType = {
+    id: number | null
+    note: string | null
+    streak: number | null
+    picUrl: string | null
+  }
+
+  export type ExtraMaxAggregateOutputType = {
+    id: number | null
+    note: string | null
+    streak: number | null
+    picUrl: string | null
+  }
+
+  export type ExtraCountAggregateOutputType = {
+    id: number
+    note: number
+    streak: number
+    picUrl: number
+    _all: number
+  }
+
+
+  export type ExtraAvgAggregateInputType = {
+    id?: true
+    streak?: true
+  }
+
+  export type ExtraSumAggregateInputType = {
+    id?: true
+    streak?: true
+  }
+
+  export type ExtraMinAggregateInputType = {
+    id?: true
+    note?: true
+    streak?: true
+    picUrl?: true
+  }
+
+  export type ExtraMaxAggregateInputType = {
+    id?: true
+    note?: true
+    streak?: true
+    picUrl?: true
+  }
+
+  export type ExtraCountAggregateInputType = {
+    id?: true
+    note?: true
+    streak?: true
+    picUrl?: true
+    _all?: true
+  }
+
+  export type ExtraAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Extra to aggregate.
+     */
+    where?: ExtraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Extras to fetch.
+     */
+    orderBy?: ExtraOrderByWithRelationInput | ExtraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExtraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Extras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Extras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Extras
+    **/
+    _count?: true | ExtraCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExtraAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExtraSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExtraMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExtraMaxAggregateInputType
+  }
+
+  export type GetExtraAggregateType<T extends ExtraAggregateArgs> = {
+        [P in keyof T & keyof AggregateExtra]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExtra[P]>
+      : GetScalarType<T[P], AggregateExtra[P]>
+  }
+
+
+
+
+  export type ExtraGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExtraWhereInput
+    orderBy?: ExtraOrderByWithAggregationInput | ExtraOrderByWithAggregationInput[]
+    by: ExtraScalarFieldEnum[] | ExtraScalarFieldEnum
+    having?: ExtraScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExtraCountAggregateInputType | true
+    _avg?: ExtraAvgAggregateInputType
+    _sum?: ExtraSumAggregateInputType
+    _min?: ExtraMinAggregateInputType
+    _max?: ExtraMaxAggregateInputType
+  }
+
+  export type ExtraGroupByOutputType = {
+    id: number
+    note: string | null
+    streak: number | null
+    picUrl: string | null
+    _count: ExtraCountAggregateOutputType | null
+    _avg: ExtraAvgAggregateOutputType | null
+    _sum: ExtraSumAggregateOutputType | null
+    _min: ExtraMinAggregateOutputType | null
+    _max: ExtraMaxAggregateOutputType | null
+  }
+
+  type GetExtraGroupByPayload<T extends ExtraGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExtraGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExtraGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExtraGroupByOutputType[P]>
+            : GetScalarType<T[P], ExtraGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExtraSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    note?: boolean
+    streak?: boolean
+    picUrl?: boolean
+  }, ExtArgs["result"]["extra"]>
+
+
+
+  export type ExtraSelectScalar = {
+    id?: boolean
+    note?: boolean
+    streak?: boolean
+    picUrl?: boolean
+  }
+
+  export type ExtraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "note" | "streak" | "picUrl", ExtArgs["result"]["extra"]>
+
+  export type $ExtraPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Extra"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      note: string | null
+      streak: number | null
+      picUrl: string | null
+    }, ExtArgs["result"]["extra"]>
+    composites: {}
+  }
+
+  type ExtraGetPayload<S extends boolean | null | undefined | ExtraDefaultArgs> = $Result.GetResult<Prisma.$ExtraPayload, S>
+
+  type ExtraCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExtraFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExtraCountAggregateInputType | true
+    }
+
+  export interface ExtraDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Extra'], meta: { name: 'Extra' } }
+    /**
+     * Find zero or one Extra that matches the filter.
+     * @param {ExtraFindUniqueArgs} args - Arguments to find a Extra
+     * @example
+     * // Get one Extra
+     * const extra = await prisma.extra.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExtraFindUniqueArgs>(args: SelectSubset<T, ExtraFindUniqueArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Extra that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExtraFindUniqueOrThrowArgs} args - Arguments to find a Extra
+     * @example
+     * // Get one Extra
+     * const extra = await prisma.extra.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExtraFindUniqueOrThrowArgs>(args: SelectSubset<T, ExtraFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Extra that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraFindFirstArgs} args - Arguments to find a Extra
+     * @example
+     * // Get one Extra
+     * const extra = await prisma.extra.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExtraFindFirstArgs>(args?: SelectSubset<T, ExtraFindFirstArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Extra that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraFindFirstOrThrowArgs} args - Arguments to find a Extra
+     * @example
+     * // Get one Extra
+     * const extra = await prisma.extra.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExtraFindFirstOrThrowArgs>(args?: SelectSubset<T, ExtraFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Extras that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Extras
+     * const extras = await prisma.extra.findMany()
+     * 
+     * // Get first 10 Extras
+     * const extras = await prisma.extra.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const extraWithIdOnly = await prisma.extra.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExtraFindManyArgs>(args?: SelectSubset<T, ExtraFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Extra.
+     * @param {ExtraCreateArgs} args - Arguments to create a Extra.
+     * @example
+     * // Create one Extra
+     * const Extra = await prisma.extra.create({
+     *   data: {
+     *     // ... data to create a Extra
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExtraCreateArgs>(args: SelectSubset<T, ExtraCreateArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Extras.
+     * @param {ExtraCreateManyArgs} args - Arguments to create many Extras.
+     * @example
+     * // Create many Extras
+     * const extra = await prisma.extra.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExtraCreateManyArgs>(args?: SelectSubset<T, ExtraCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Extra.
+     * @param {ExtraDeleteArgs} args - Arguments to delete one Extra.
+     * @example
+     * // Delete one Extra
+     * const Extra = await prisma.extra.delete({
+     *   where: {
+     *     // ... filter to delete one Extra
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExtraDeleteArgs>(args: SelectSubset<T, ExtraDeleteArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Extra.
+     * @param {ExtraUpdateArgs} args - Arguments to update one Extra.
+     * @example
+     * // Update one Extra
+     * const extra = await prisma.extra.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExtraUpdateArgs>(args: SelectSubset<T, ExtraUpdateArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Extras.
+     * @param {ExtraDeleteManyArgs} args - Arguments to filter Extras to delete.
+     * @example
+     * // Delete a few Extras
+     * const { count } = await prisma.extra.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExtraDeleteManyArgs>(args?: SelectSubset<T, ExtraDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Extras.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Extras
+     * const extra = await prisma.extra.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExtraUpdateManyArgs>(args: SelectSubset<T, ExtraUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Extra.
+     * @param {ExtraUpsertArgs} args - Arguments to update or create a Extra.
+     * @example
+     * // Update or create a Extra
+     * const extra = await prisma.extra.upsert({
+     *   create: {
+     *     // ... data to create a Extra
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Extra we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExtraUpsertArgs>(args: SelectSubset<T, ExtraUpsertArgs<ExtArgs>>): Prisma__ExtraClient<$Result.GetResult<Prisma.$ExtraPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Extras.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraCountArgs} args - Arguments to filter Extras to count.
+     * @example
+     * // Count the number of Extras
+     * const count = await prisma.extra.count({
+     *   where: {
+     *     // ... the filter for the Extras we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExtraCountArgs>(
+      args?: Subset<T, ExtraCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExtraCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Extra.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExtraAggregateArgs>(args: Subset<T, ExtraAggregateArgs>): Prisma.PrismaPromise<GetExtraAggregateType<T>>
+
+    /**
+     * Group by Extra.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtraGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExtraGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExtraGroupByArgs['orderBy'] }
+        : { orderBy?: ExtraGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExtraGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExtraGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Extra model
+   */
+  readonly fields: ExtraFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Extra.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExtraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Extra model
+   */
+  interface ExtraFieldRefs {
+    readonly id: FieldRef<"Extra", 'Int'>
+    readonly note: FieldRef<"Extra", 'String'>
+    readonly streak: FieldRef<"Extra", 'Int'>
+    readonly picUrl: FieldRef<"Extra", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Extra findUnique
+   */
+  export type ExtraFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * Filter, which Extra to fetch.
+     */
+    where: ExtraWhereUniqueInput
+  }
+
+  /**
+   * Extra findUniqueOrThrow
+   */
+  export type ExtraFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * Filter, which Extra to fetch.
+     */
+    where: ExtraWhereUniqueInput
+  }
+
+  /**
+   * Extra findFirst
+   */
+  export type ExtraFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * Filter, which Extra to fetch.
+     */
+    where?: ExtraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Extras to fetch.
+     */
+    orderBy?: ExtraOrderByWithRelationInput | ExtraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Extras.
+     */
+    cursor?: ExtraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Extras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Extras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Extras.
+     */
+    distinct?: ExtraScalarFieldEnum | ExtraScalarFieldEnum[]
+  }
+
+  /**
+   * Extra findFirstOrThrow
+   */
+  export type ExtraFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * Filter, which Extra to fetch.
+     */
+    where?: ExtraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Extras to fetch.
+     */
+    orderBy?: ExtraOrderByWithRelationInput | ExtraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Extras.
+     */
+    cursor?: ExtraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Extras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Extras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Extras.
+     */
+    distinct?: ExtraScalarFieldEnum | ExtraScalarFieldEnum[]
+  }
+
+  /**
+   * Extra findMany
+   */
+  export type ExtraFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * Filter, which Extras to fetch.
+     */
+    where?: ExtraWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Extras to fetch.
+     */
+    orderBy?: ExtraOrderByWithRelationInput | ExtraOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Extras.
+     */
+    cursor?: ExtraWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Extras from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Extras.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Extras.
+     */
+    distinct?: ExtraScalarFieldEnum | ExtraScalarFieldEnum[]
+  }
+
+  /**
+   * Extra create
+   */
+  export type ExtraCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Extra.
+     */
+    data?: XOR<ExtraCreateInput, ExtraUncheckedCreateInput>
+  }
+
+  /**
+   * Extra createMany
+   */
+  export type ExtraCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Extras.
+     */
+    data: ExtraCreateManyInput | ExtraCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Extra update
+   */
+  export type ExtraUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Extra.
+     */
+    data: XOR<ExtraUpdateInput, ExtraUncheckedUpdateInput>
+    /**
+     * Choose, which Extra to update.
+     */
+    where: ExtraWhereUniqueInput
+  }
+
+  /**
+   * Extra updateMany
+   */
+  export type ExtraUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Extras.
+     */
+    data: XOR<ExtraUpdateManyMutationInput, ExtraUncheckedUpdateManyInput>
+    /**
+     * Filter which Extras to update
+     */
+    where?: ExtraWhereInput
+    /**
+     * Limit how many Extras to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Extra upsert
+   */
+  export type ExtraUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Extra to update in case it exists.
+     */
+    where: ExtraWhereUniqueInput
+    /**
+     * In case the Extra found by the `where` argument doesn't exist, create a new Extra with this data.
+     */
+    create: XOR<ExtraCreateInput, ExtraUncheckedCreateInput>
+    /**
+     * In case the Extra was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExtraUpdateInput, ExtraUncheckedUpdateInput>
+  }
+
+  /**
+   * Extra delete
+   */
+  export type ExtraDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+    /**
+     * Filter which Extra to delete.
+     */
+    where: ExtraWhereUniqueInput
+  }
+
+  /**
+   * Extra deleteMany
+   */
+  export type ExtraDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Extras to delete
+     */
+    where?: ExtraWhereInput
+    /**
+     * Limit how many Extras to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Extra without action
+   */
+  export type ExtraDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Extra
+     */
+    select?: ExtraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Extra
+     */
+    omit?: ExtraOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SavingsEntry
+   */
+
+  export type AggregateSavingsEntry = {
+    _count: SavingsEntryCountAggregateOutputType | null
+    _avg: SavingsEntryAvgAggregateOutputType | null
+    _sum: SavingsEntrySumAggregateOutputType | null
+    _min: SavingsEntryMinAggregateOutputType | null
+    _max: SavingsEntryMaxAggregateOutputType | null
+  }
+
+  export type SavingsEntryAvgAggregateOutputType = {
+    id: number | null
+    amount: number | null
+  }
+
+  export type SavingsEntrySumAggregateOutputType = {
+    id: number | null
+    amount: number | null
+  }
+
+  export type SavingsEntryMinAggregateOutputType = {
+    id: number | null
+    amount: number | null
+    note: string | null
+    createdAt: Date | null
+  }
+
+  export type SavingsEntryMaxAggregateOutputType = {
+    id: number | null
+    amount: number | null
+    note: string | null
+    createdAt: Date | null
+  }
+
+  export type SavingsEntryCountAggregateOutputType = {
+    id: number
+    amount: number
+    note: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SavingsEntryAvgAggregateInputType = {
+    id?: true
+    amount?: true
+  }
+
+  export type SavingsEntrySumAggregateInputType = {
+    id?: true
+    amount?: true
+  }
+
+  export type SavingsEntryMinAggregateInputType = {
+    id?: true
+    amount?: true
+    note?: true
+    createdAt?: true
+  }
+
+  export type SavingsEntryMaxAggregateInputType = {
+    id?: true
+    amount?: true
+    note?: true
+    createdAt?: true
+  }
+
+  export type SavingsEntryCountAggregateInputType = {
+    id?: true
+    amount?: true
+    note?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SavingsEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavingsEntry to aggregate.
+     */
+    where?: SavingsEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavingsEntries to fetch.
+     */
+    orderBy?: SavingsEntryOrderByWithRelationInput | SavingsEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SavingsEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavingsEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavingsEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SavingsEntries
+    **/
+    _count?: true | SavingsEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SavingsEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SavingsEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SavingsEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SavingsEntryMaxAggregateInputType
+  }
+
+  export type GetSavingsEntryAggregateType<T extends SavingsEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavingsEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSavingsEntry[P]>
+      : GetScalarType<T[P], AggregateSavingsEntry[P]>
+  }
+
+
+
+
+  export type SavingsEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavingsEntryWhereInput
+    orderBy?: SavingsEntryOrderByWithAggregationInput | SavingsEntryOrderByWithAggregationInput[]
+    by: SavingsEntryScalarFieldEnum[] | SavingsEntryScalarFieldEnum
+    having?: SavingsEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SavingsEntryCountAggregateInputType | true
+    _avg?: SavingsEntryAvgAggregateInputType
+    _sum?: SavingsEntrySumAggregateInputType
+    _min?: SavingsEntryMinAggregateInputType
+    _max?: SavingsEntryMaxAggregateInputType
+  }
+
+  export type SavingsEntryGroupByOutputType = {
+    id: number
+    amount: number
+    note: string | null
+    createdAt: Date
+    _count: SavingsEntryCountAggregateOutputType | null
+    _avg: SavingsEntryAvgAggregateOutputType | null
+    _sum: SavingsEntrySumAggregateOutputType | null
+    _min: SavingsEntryMinAggregateOutputType | null
+    _max: SavingsEntryMaxAggregateOutputType | null
+  }
+
+  type GetSavingsEntryGroupByPayload<T extends SavingsEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SavingsEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SavingsEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SavingsEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], SavingsEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SavingsEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    amount?: boolean
+    note?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["savingsEntry"]>
+
+
+
+  export type SavingsEntrySelectScalar = {
+    id?: boolean
+    amount?: boolean
+    note?: boolean
+    createdAt?: boolean
+  }
+
+  export type SavingsEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "note" | "createdAt", ExtArgs["result"]["savingsEntry"]>
+
+  export type $SavingsEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SavingsEntry"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      amount: number
+      note: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["savingsEntry"]>
+    composites: {}
+  }
+
+  type SavingsEntryGetPayload<S extends boolean | null | undefined | SavingsEntryDefaultArgs> = $Result.GetResult<Prisma.$SavingsEntryPayload, S>
+
+  type SavingsEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SavingsEntryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SavingsEntryCountAggregateInputType | true
+    }
+
+  export interface SavingsEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavingsEntry'], meta: { name: 'SavingsEntry' } }
+    /**
+     * Find zero or one SavingsEntry that matches the filter.
+     * @param {SavingsEntryFindUniqueArgs} args - Arguments to find a SavingsEntry
+     * @example
+     * // Get one SavingsEntry
+     * const savingsEntry = await prisma.savingsEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SavingsEntryFindUniqueArgs>(args: SelectSubset<T, SavingsEntryFindUniqueArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SavingsEntry that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SavingsEntryFindUniqueOrThrowArgs} args - Arguments to find a SavingsEntry
+     * @example
+     * // Get one SavingsEntry
+     * const savingsEntry = await prisma.savingsEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SavingsEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, SavingsEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavingsEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryFindFirstArgs} args - Arguments to find a SavingsEntry
+     * @example
+     * // Get one SavingsEntry
+     * const savingsEntry = await prisma.savingsEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SavingsEntryFindFirstArgs>(args?: SelectSubset<T, SavingsEntryFindFirstArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavingsEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryFindFirstOrThrowArgs} args - Arguments to find a SavingsEntry
+     * @example
+     * // Get one SavingsEntry
+     * const savingsEntry = await prisma.savingsEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SavingsEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, SavingsEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SavingsEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SavingsEntries
+     * const savingsEntries = await prisma.savingsEntry.findMany()
+     * 
+     * // Get first 10 SavingsEntries
+     * const savingsEntries = await prisma.savingsEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const savingsEntryWithIdOnly = await prisma.savingsEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SavingsEntryFindManyArgs>(args?: SelectSubset<T, SavingsEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SavingsEntry.
+     * @param {SavingsEntryCreateArgs} args - Arguments to create a SavingsEntry.
+     * @example
+     * // Create one SavingsEntry
+     * const SavingsEntry = await prisma.savingsEntry.create({
+     *   data: {
+     *     // ... data to create a SavingsEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends SavingsEntryCreateArgs>(args: SelectSubset<T, SavingsEntryCreateArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SavingsEntries.
+     * @param {SavingsEntryCreateManyArgs} args - Arguments to create many SavingsEntries.
+     * @example
+     * // Create many SavingsEntries
+     * const savingsEntry = await prisma.savingsEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SavingsEntryCreateManyArgs>(args?: SelectSubset<T, SavingsEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SavingsEntry.
+     * @param {SavingsEntryDeleteArgs} args - Arguments to delete one SavingsEntry.
+     * @example
+     * // Delete one SavingsEntry
+     * const SavingsEntry = await prisma.savingsEntry.delete({
+     *   where: {
+     *     // ... filter to delete one SavingsEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SavingsEntryDeleteArgs>(args: SelectSubset<T, SavingsEntryDeleteArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SavingsEntry.
+     * @param {SavingsEntryUpdateArgs} args - Arguments to update one SavingsEntry.
+     * @example
+     * // Update one SavingsEntry
+     * const savingsEntry = await prisma.savingsEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SavingsEntryUpdateArgs>(args: SelectSubset<T, SavingsEntryUpdateArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SavingsEntries.
+     * @param {SavingsEntryDeleteManyArgs} args - Arguments to filter SavingsEntries to delete.
+     * @example
+     * // Delete a few SavingsEntries
+     * const { count } = await prisma.savingsEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SavingsEntryDeleteManyArgs>(args?: SelectSubset<T, SavingsEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavingsEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SavingsEntries
+     * const savingsEntry = await prisma.savingsEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SavingsEntryUpdateManyArgs>(args: SelectSubset<T, SavingsEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SavingsEntry.
+     * @param {SavingsEntryUpsertArgs} args - Arguments to update or create a SavingsEntry.
+     * @example
+     * // Update or create a SavingsEntry
+     * const savingsEntry = await prisma.savingsEntry.upsert({
+     *   create: {
+     *     // ... data to create a SavingsEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SavingsEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SavingsEntryUpsertArgs>(args: SelectSubset<T, SavingsEntryUpsertArgs<ExtArgs>>): Prisma__SavingsEntryClient<$Result.GetResult<Prisma.$SavingsEntryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SavingsEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryCountArgs} args - Arguments to filter SavingsEntries to count.
+     * @example
+     * // Count the number of SavingsEntries
+     * const count = await prisma.savingsEntry.count({
+     *   where: {
+     *     // ... the filter for the SavingsEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends SavingsEntryCountArgs>(
+      args?: Subset<T, SavingsEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SavingsEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SavingsEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SavingsEntryAggregateArgs>(args: Subset<T, SavingsEntryAggregateArgs>): Prisma.PrismaPromise<GetSavingsEntryAggregateType<T>>
+
+    /**
+     * Group by SavingsEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SavingsEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SavingsEntryGroupByArgs['orderBy'] }
+        : { orderBy?: SavingsEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SavingsEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavingsEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SavingsEntry model
+   */
+  readonly fields: SavingsEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SavingsEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SavingsEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SavingsEntry model
+   */
+  interface SavingsEntryFieldRefs {
+    readonly id: FieldRef<"SavingsEntry", 'Int'>
+    readonly amount: FieldRef<"SavingsEntry", 'Float'>
+    readonly note: FieldRef<"SavingsEntry", 'String'>
+    readonly createdAt: FieldRef<"SavingsEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SavingsEntry findUnique
+   */
+  export type SavingsEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * Filter, which SavingsEntry to fetch.
+     */
+    where: SavingsEntryWhereUniqueInput
+  }
+
+  /**
+   * SavingsEntry findUniqueOrThrow
+   */
+  export type SavingsEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * Filter, which SavingsEntry to fetch.
+     */
+    where: SavingsEntryWhereUniqueInput
+  }
+
+  /**
+   * SavingsEntry findFirst
+   */
+  export type SavingsEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * Filter, which SavingsEntry to fetch.
+     */
+    where?: SavingsEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavingsEntries to fetch.
+     */
+    orderBy?: SavingsEntryOrderByWithRelationInput | SavingsEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavingsEntries.
+     */
+    cursor?: SavingsEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavingsEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavingsEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavingsEntries.
+     */
+    distinct?: SavingsEntryScalarFieldEnum | SavingsEntryScalarFieldEnum[]
+  }
+
+  /**
+   * SavingsEntry findFirstOrThrow
+   */
+  export type SavingsEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * Filter, which SavingsEntry to fetch.
+     */
+    where?: SavingsEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavingsEntries to fetch.
+     */
+    orderBy?: SavingsEntryOrderByWithRelationInput | SavingsEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavingsEntries.
+     */
+    cursor?: SavingsEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavingsEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavingsEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavingsEntries.
+     */
+    distinct?: SavingsEntryScalarFieldEnum | SavingsEntryScalarFieldEnum[]
+  }
+
+  /**
+   * SavingsEntry findMany
+   */
+  export type SavingsEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * Filter, which SavingsEntries to fetch.
+     */
+    where?: SavingsEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavingsEntries to fetch.
+     */
+    orderBy?: SavingsEntryOrderByWithRelationInput | SavingsEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SavingsEntries.
+     */
+    cursor?: SavingsEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavingsEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavingsEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavingsEntries.
+     */
+    distinct?: SavingsEntryScalarFieldEnum | SavingsEntryScalarFieldEnum[]
+  }
+
+  /**
+   * SavingsEntry create
+   */
+  export type SavingsEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SavingsEntry.
+     */
+    data: XOR<SavingsEntryCreateInput, SavingsEntryUncheckedCreateInput>
+  }
+
+  /**
+   * SavingsEntry createMany
+   */
+  export type SavingsEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SavingsEntries.
+     */
+    data: SavingsEntryCreateManyInput | SavingsEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SavingsEntry update
+   */
+  export type SavingsEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SavingsEntry.
+     */
+    data: XOR<SavingsEntryUpdateInput, SavingsEntryUncheckedUpdateInput>
+    /**
+     * Choose, which SavingsEntry to update.
+     */
+    where: SavingsEntryWhereUniqueInput
+  }
+
+  /**
+   * SavingsEntry updateMany
+   */
+  export type SavingsEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SavingsEntries.
+     */
+    data: XOR<SavingsEntryUpdateManyMutationInput, SavingsEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which SavingsEntries to update
+     */
+    where?: SavingsEntryWhereInput
+    /**
+     * Limit how many SavingsEntries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavingsEntry upsert
+   */
+  export type SavingsEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SavingsEntry to update in case it exists.
+     */
+    where: SavingsEntryWhereUniqueInput
+    /**
+     * In case the SavingsEntry found by the `where` argument doesn't exist, create a new SavingsEntry with this data.
+     */
+    create: XOR<SavingsEntryCreateInput, SavingsEntryUncheckedCreateInput>
+    /**
+     * In case the SavingsEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavingsEntryUpdateInput, SavingsEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * SavingsEntry delete
+   */
+  export type SavingsEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+    /**
+     * Filter which SavingsEntry to delete.
+     */
+    where: SavingsEntryWhereUniqueInput
+  }
+
+  /**
+   * SavingsEntry deleteMany
+   */
+  export type SavingsEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavingsEntries to delete
+     */
+    where?: SavingsEntryWhereInput
+    /**
+     * Limit how many SavingsEntries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavingsEntry without action
+   */
+  export type SavingsEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsEntry
+     */
+    select?: SavingsEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavingsEntry
+     */
+    omit?: SavingsEntryOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model DailyRoutine
@@ -2209,8 +4173,7 @@ export namespace Prisma {
     date?: boolean
     year?: boolean
     weekNumber?: boolean
-    monthlyReviews?: boolean | WeeklySubmission$monthlyReviewsArgs<ExtArgs>
-    _count?: boolean | WeeklySubmissionCountOutputTypeDefaultArgs<ExtArgs>
+    monthlyReview?: boolean | WeeklySubmission$monthlyReviewArgs<ExtArgs>
   }, ExtArgs["result"]["weeklySubmission"]>
 
 
@@ -2228,14 +4191,13 @@ export namespace Prisma {
 
   export type WeeklySubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "image" | "hoursSpent" | "date" | "year" | "weekNumber", ExtArgs["result"]["weeklySubmission"]>
   export type WeeklySubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    monthlyReviews?: boolean | WeeklySubmission$monthlyReviewsArgs<ExtArgs>
-    _count?: boolean | WeeklySubmissionCountOutputTypeDefaultArgs<ExtArgs>
+    monthlyReview?: boolean | WeeklySubmission$monthlyReviewArgs<ExtArgs>
   }
 
   export type $WeeklySubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WeeklySubmission"
     objects: {
-      monthlyReviews: Prisma.$MonthlyReviewPayload<ExtArgs>[]
+      monthlyReview: Prisma.$MonthlyReviewPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2586,7 +4548,7 @@ export namespace Prisma {
    */
   export interface Prisma__WeeklySubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    monthlyReviews<T extends WeeklySubmission$monthlyReviewsArgs<ExtArgs> = {}>(args?: Subset<T, WeeklySubmission$monthlyReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonthlyReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    monthlyReview<T extends WeeklySubmission$monthlyReviewArgs<ExtArgs> = {}>(args?: Subset<T, WeeklySubmission$monthlyReviewArgs<ExtArgs>>): Prisma__MonthlyReviewClient<$Result.GetResult<Prisma.$MonthlyReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2972,9 +4934,9 @@ export namespace Prisma {
   }
 
   /**
-   * WeeklySubmission.monthlyReviews
+   * WeeklySubmission.monthlyReview
    */
-  export type WeeklySubmission$monthlyReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type WeeklySubmission$monthlyReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the MonthlyReview
      */
@@ -2988,11 +4950,6 @@ export namespace Prisma {
      */
     include?: MonthlyReviewInclude<ExtArgs> | null
     where?: MonthlyReviewWhereInput
-    orderBy?: MonthlyReviewOrderByWithRelationInput | MonthlyReviewOrderByWithRelationInput[]
-    cursor?: MonthlyReviewWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MonthlyReviewScalarFieldEnum | MonthlyReviewScalarFieldEnum[]
   }
 
   /**
@@ -3028,24 +4985,30 @@ export namespace Prisma {
 
   export type MonthlyReviewAvgAggregateOutputType = {
     id: number | null
+    month: number | null
+    year: number | null
     bestPieceId: number | null
   }
 
   export type MonthlyReviewSumAggregateOutputType = {
     id: number | null
+    month: number | null
+    year: number | null
     bestPieceId: number | null
   }
 
   export type MonthlyReviewMinAggregateOutputType = {
     id: number | null
-    month: string | null
+    month: number | null
+    year: number | null
     notes: string | null
     bestPieceId: number | null
   }
 
   export type MonthlyReviewMaxAggregateOutputType = {
     id: number | null
-    month: string | null
+    month: number | null
+    year: number | null
     notes: string | null
     bestPieceId: number | null
   }
@@ -3053,6 +5016,7 @@ export namespace Prisma {
   export type MonthlyReviewCountAggregateOutputType = {
     id: number
     month: number
+    year: number
     notes: number
     bestPieceId: number
     _all: number
@@ -3061,17 +5025,22 @@ export namespace Prisma {
 
   export type MonthlyReviewAvgAggregateInputType = {
     id?: true
+    month?: true
+    year?: true
     bestPieceId?: true
   }
 
   export type MonthlyReviewSumAggregateInputType = {
     id?: true
+    month?: true
+    year?: true
     bestPieceId?: true
   }
 
   export type MonthlyReviewMinAggregateInputType = {
     id?: true
     month?: true
+    year?: true
     notes?: true
     bestPieceId?: true
   }
@@ -3079,6 +5048,7 @@ export namespace Prisma {
   export type MonthlyReviewMaxAggregateInputType = {
     id?: true
     month?: true
+    year?: true
     notes?: true
     bestPieceId?: true
   }
@@ -3086,6 +5056,7 @@ export namespace Prisma {
   export type MonthlyReviewCountAggregateInputType = {
     id?: true
     month?: true
+    year?: true
     notes?: true
     bestPieceId?: true
     _all?: true
@@ -3179,7 +5150,8 @@ export namespace Prisma {
 
   export type MonthlyReviewGroupByOutputType = {
     id: number
-    month: string
+    month: number
+    year: number
     notes: string | null
     bestPieceId: number | null
     _count: MonthlyReviewCountAggregateOutputType | null
@@ -3206,6 +5178,7 @@ export namespace Prisma {
   export type MonthlyReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     month?: boolean
+    year?: boolean
     notes?: boolean
     bestPieceId?: boolean
     bestPiece?: boolean | MonthlyReview$bestPieceArgs<ExtArgs>
@@ -3216,11 +5189,12 @@ export namespace Prisma {
   export type MonthlyReviewSelectScalar = {
     id?: boolean
     month?: boolean
+    year?: boolean
     notes?: boolean
     bestPieceId?: boolean
   }
 
-  export type MonthlyReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "month" | "notes" | "bestPieceId", ExtArgs["result"]["monthlyReview"]>
+  export type MonthlyReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "month" | "year" | "notes" | "bestPieceId", ExtArgs["result"]["monthlyReview"]>
   export type MonthlyReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bestPiece?: boolean | MonthlyReview$bestPieceArgs<ExtArgs>
   }
@@ -3232,7 +5206,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      month: string
+      month: number
+      year: number
       notes: string | null
       bestPieceId: number | null
     }, ExtArgs["result"]["monthlyReview"]>
@@ -3606,7 +5581,8 @@ export namespace Prisma {
    */
   interface MonthlyReviewFieldRefs {
     readonly id: FieldRef<"MonthlyReview", 'Int'>
-    readonly month: FieldRef<"MonthlyReview", 'String'>
+    readonly month: FieldRef<"MonthlyReview", 'Int'>
+    readonly year: FieldRef<"MonthlyReview", 'Int'>
     readonly notes: FieldRef<"MonthlyReview", 'String'>
     readonly bestPieceId: FieldRef<"MonthlyReview", 'Int'>
   }
@@ -4008,6 +5984,26 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const ExtraScalarFieldEnum: {
+    id: 'id',
+    note: 'note',
+    streak: 'streak',
+    picUrl: 'picUrl'
+  };
+
+  export type ExtraScalarFieldEnum = (typeof ExtraScalarFieldEnum)[keyof typeof ExtraScalarFieldEnum]
+
+
+  export const SavingsEntryScalarFieldEnum: {
+    id: 'id',
+    amount: 'amount',
+    note: 'note',
+    createdAt: 'createdAt'
+  };
+
+  export type SavingsEntryScalarFieldEnum = (typeof SavingsEntryScalarFieldEnum)[keyof typeof SavingsEntryScalarFieldEnum]
+
+
   export const DailyRoutineScalarFieldEnum: {
     id: 'id',
     date: 'date',
@@ -4036,6 +6032,7 @@ export namespace Prisma {
   export const MonthlyReviewScalarFieldEnum: {
     id: 'id',
     month: 'month',
+    year: 'year',
     notes: 'notes',
     bestPieceId: 'bestPieceId'
   };
@@ -4059,6 +6056,21 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+  export const ExtraOrderByRelevanceFieldEnum: {
+    note: 'note',
+    picUrl: 'picUrl'
+  };
+
+  export type ExtraOrderByRelevanceFieldEnum = (typeof ExtraOrderByRelevanceFieldEnum)[keyof typeof ExtraOrderByRelevanceFieldEnum]
+
+
+  export const SavingsEntryOrderByRelevanceFieldEnum: {
+    note: 'note'
+  };
+
+  export type SavingsEntryOrderByRelevanceFieldEnum = (typeof SavingsEntryOrderByRelevanceFieldEnum)[keyof typeof SavingsEntryOrderByRelevanceFieldEnum]
+
+
   export const WeeklySubmissionOrderByRelevanceFieldEnum: {
     title: 'title',
     description: 'description',
@@ -4069,7 +6081,6 @@ export namespace Prisma {
 
 
   export const MonthlyReviewOrderByRelevanceFieldEnum: {
-    month: 'month',
     notes: 'notes'
   };
 
@@ -4089,20 +6100,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -4114,10 +6111,124 @@ export namespace Prisma {
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
   /**
    * Deep Input Types
    */
 
+
+  export type ExtraWhereInput = {
+    AND?: ExtraWhereInput | ExtraWhereInput[]
+    OR?: ExtraWhereInput[]
+    NOT?: ExtraWhereInput | ExtraWhereInput[]
+    id?: IntFilter<"Extra"> | number
+    note?: StringNullableFilter<"Extra"> | string | null
+    streak?: IntNullableFilter<"Extra"> | number | null
+    picUrl?: StringNullableFilter<"Extra"> | string | null
+  }
+
+  export type ExtraOrderByWithRelationInput = {
+    id?: SortOrder
+    note?: SortOrderInput | SortOrder
+    streak?: SortOrderInput | SortOrder
+    picUrl?: SortOrderInput | SortOrder
+    _relevance?: ExtraOrderByRelevanceInput
+  }
+
+  export type ExtraWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ExtraWhereInput | ExtraWhereInput[]
+    OR?: ExtraWhereInput[]
+    NOT?: ExtraWhereInput | ExtraWhereInput[]
+    note?: StringNullableFilter<"Extra"> | string | null
+    streak?: IntNullableFilter<"Extra"> | number | null
+    picUrl?: StringNullableFilter<"Extra"> | string | null
+  }, "id">
+
+  export type ExtraOrderByWithAggregationInput = {
+    id?: SortOrder
+    note?: SortOrderInput | SortOrder
+    streak?: SortOrderInput | SortOrder
+    picUrl?: SortOrderInput | SortOrder
+    _count?: ExtraCountOrderByAggregateInput
+    _avg?: ExtraAvgOrderByAggregateInput
+    _max?: ExtraMaxOrderByAggregateInput
+    _min?: ExtraMinOrderByAggregateInput
+    _sum?: ExtraSumOrderByAggregateInput
+  }
+
+  export type ExtraScalarWhereWithAggregatesInput = {
+    AND?: ExtraScalarWhereWithAggregatesInput | ExtraScalarWhereWithAggregatesInput[]
+    OR?: ExtraScalarWhereWithAggregatesInput[]
+    NOT?: ExtraScalarWhereWithAggregatesInput | ExtraScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Extra"> | number
+    note?: StringNullableWithAggregatesFilter<"Extra"> | string | null
+    streak?: IntNullableWithAggregatesFilter<"Extra"> | number | null
+    picUrl?: StringNullableWithAggregatesFilter<"Extra"> | string | null
+  }
+
+  export type SavingsEntryWhereInput = {
+    AND?: SavingsEntryWhereInput | SavingsEntryWhereInput[]
+    OR?: SavingsEntryWhereInput[]
+    NOT?: SavingsEntryWhereInput | SavingsEntryWhereInput[]
+    id?: IntFilter<"SavingsEntry"> | number
+    amount?: FloatFilter<"SavingsEntry"> | number
+    note?: StringNullableFilter<"SavingsEntry"> | string | null
+    createdAt?: DateTimeFilter<"SavingsEntry"> | Date | string
+  }
+
+  export type SavingsEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    note?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _relevance?: SavingsEntryOrderByRelevanceInput
+  }
+
+  export type SavingsEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SavingsEntryWhereInput | SavingsEntryWhereInput[]
+    OR?: SavingsEntryWhereInput[]
+    NOT?: SavingsEntryWhereInput | SavingsEntryWhereInput[]
+    amount?: FloatFilter<"SavingsEntry"> | number
+    note?: StringNullableFilter<"SavingsEntry"> | string | null
+    createdAt?: DateTimeFilter<"SavingsEntry"> | Date | string
+  }, "id">
+
+  export type SavingsEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    note?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SavingsEntryCountOrderByAggregateInput
+    _avg?: SavingsEntryAvgOrderByAggregateInput
+    _max?: SavingsEntryMaxOrderByAggregateInput
+    _min?: SavingsEntryMinOrderByAggregateInput
+    _sum?: SavingsEntrySumOrderByAggregateInput
+  }
+
+  export type SavingsEntryScalarWhereWithAggregatesInput = {
+    AND?: SavingsEntryScalarWhereWithAggregatesInput | SavingsEntryScalarWhereWithAggregatesInput[]
+    OR?: SavingsEntryScalarWhereWithAggregatesInput[]
+    NOT?: SavingsEntryScalarWhereWithAggregatesInput | SavingsEntryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SavingsEntry"> | number
+    amount?: FloatWithAggregatesFilter<"SavingsEntry"> | number
+    note?: StringNullableWithAggregatesFilter<"SavingsEntry"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SavingsEntry"> | Date | string
+  }
 
   export type DailyRoutineWhereInput = {
     AND?: DailyRoutineWhereInput | DailyRoutineWhereInput[]
@@ -4185,7 +6296,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"WeeklySubmission"> | Date | string
     year?: IntFilter<"WeeklySubmission"> | number
     weekNumber?: IntFilter<"WeeklySubmission"> | number
-    monthlyReviews?: MonthlyReviewListRelationFilter
+    monthlyReview?: XOR<MonthlyReviewNullableScalarRelationFilter, MonthlyReviewWhereInput> | null
   }
 
   export type WeeklySubmissionOrderByWithRelationInput = {
@@ -4197,7 +6308,7 @@ export namespace Prisma {
     date?: SortOrder
     year?: SortOrder
     weekNumber?: SortOrder
-    monthlyReviews?: MonthlyReviewOrderByRelationAggregateInput
+    monthlyReview?: MonthlyReviewOrderByWithRelationInput
     _relevance?: WeeklySubmissionOrderByRelevanceInput
   }
 
@@ -4214,7 +6325,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"WeeklySubmission"> | Date | string
     year?: IntFilter<"WeeklySubmission"> | number
     weekNumber?: IntFilter<"WeeklySubmission"> | number
-    monthlyReviews?: MonthlyReviewListRelationFilter
+    monthlyReview?: XOR<MonthlyReviewNullableScalarRelationFilter, MonthlyReviewWhereInput> | null
   }, "id" | "year_weekNumber">
 
   export type WeeklySubmissionOrderByWithAggregationInput = {
@@ -4252,7 +6363,8 @@ export namespace Prisma {
     OR?: MonthlyReviewWhereInput[]
     NOT?: MonthlyReviewWhereInput | MonthlyReviewWhereInput[]
     id?: IntFilter<"MonthlyReview"> | number
-    month?: StringFilter<"MonthlyReview"> | string
+    month?: IntFilter<"MonthlyReview"> | number
+    year?: IntFilter<"MonthlyReview"> | number
     notes?: StringNullableFilter<"MonthlyReview"> | string | null
     bestPieceId?: IntNullableFilter<"MonthlyReview"> | number | null
     bestPiece?: XOR<WeeklySubmissionNullableScalarRelationFilter, WeeklySubmissionWhereInput> | null
@@ -4261,6 +6373,7 @@ export namespace Prisma {
   export type MonthlyReviewOrderByWithRelationInput = {
     id?: SortOrder
     month?: SortOrder
+    year?: SortOrder
     notes?: SortOrderInput | SortOrder
     bestPieceId?: SortOrderInput | SortOrder
     bestPiece?: WeeklySubmissionOrderByWithRelationInput
@@ -4269,18 +6382,21 @@ export namespace Prisma {
 
   export type MonthlyReviewWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    bestPieceId?: number
+    month_year?: MonthlyReviewMonthYearCompoundUniqueInput
     AND?: MonthlyReviewWhereInput | MonthlyReviewWhereInput[]
     OR?: MonthlyReviewWhereInput[]
     NOT?: MonthlyReviewWhereInput | MonthlyReviewWhereInput[]
-    month?: StringFilter<"MonthlyReview"> | string
+    month?: IntFilter<"MonthlyReview"> | number
+    year?: IntFilter<"MonthlyReview"> | number
     notes?: StringNullableFilter<"MonthlyReview"> | string | null
-    bestPieceId?: IntNullableFilter<"MonthlyReview"> | number | null
     bestPiece?: XOR<WeeklySubmissionNullableScalarRelationFilter, WeeklySubmissionWhereInput> | null
-  }, "id">
+  }, "id" | "bestPieceId" | "month_year">
 
   export type MonthlyReviewOrderByWithAggregationInput = {
     id?: SortOrder
     month?: SortOrder
+    year?: SortOrder
     notes?: SortOrderInput | SortOrder
     bestPieceId?: SortOrderInput | SortOrder
     _count?: MonthlyReviewCountOrderByAggregateInput
@@ -4295,9 +6411,102 @@ export namespace Prisma {
     OR?: MonthlyReviewScalarWhereWithAggregatesInput[]
     NOT?: MonthlyReviewScalarWhereWithAggregatesInput | MonthlyReviewScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"MonthlyReview"> | number
-    month?: StringWithAggregatesFilter<"MonthlyReview"> | string
+    month?: IntWithAggregatesFilter<"MonthlyReview"> | number
+    year?: IntWithAggregatesFilter<"MonthlyReview"> | number
     notes?: StringNullableWithAggregatesFilter<"MonthlyReview"> | string | null
     bestPieceId?: IntNullableWithAggregatesFilter<"MonthlyReview"> | number | null
+  }
+
+  export type ExtraCreateInput = {
+    note?: string | null
+    streak?: number | null
+    picUrl?: string | null
+  }
+
+  export type ExtraUncheckedCreateInput = {
+    id?: number
+    note?: string | null
+    streak?: number | null
+    picUrl?: string | null
+  }
+
+  export type ExtraUpdateInput = {
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    streak?: NullableIntFieldUpdateOperationsInput | number | null
+    picUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ExtraUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    streak?: NullableIntFieldUpdateOperationsInput | number | null
+    picUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ExtraCreateManyInput = {
+    id?: number
+    note?: string | null
+    streak?: number | null
+    picUrl?: string | null
+  }
+
+  export type ExtraUpdateManyMutationInput = {
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    streak?: NullableIntFieldUpdateOperationsInput | number | null
+    picUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ExtraUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    streak?: NullableIntFieldUpdateOperationsInput | number | null
+    picUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SavingsEntryCreateInput = {
+    amount: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SavingsEntryUncheckedCreateInput = {
+    id?: number
+    amount: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SavingsEntryUpdateInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsEntryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsEntryCreateManyInput = {
+    id?: number
+    amount: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SavingsEntryUpdateManyMutationInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsEntryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DailyRoutineCreateInput = {
@@ -4361,7 +6570,7 @@ export namespace Prisma {
     date: Date | string
     year: number
     weekNumber: number
-    monthlyReviews?: MonthlyReviewCreateNestedManyWithoutBestPieceInput
+    monthlyReview?: MonthlyReviewCreateNestedOneWithoutBestPieceInput
   }
 
   export type WeeklySubmissionUncheckedCreateInput = {
@@ -4373,7 +6582,7 @@ export namespace Prisma {
     date: Date | string
     year: number
     weekNumber: number
-    monthlyReviews?: MonthlyReviewUncheckedCreateNestedManyWithoutBestPieceInput
+    monthlyReview?: MonthlyReviewUncheckedCreateNestedOneWithoutBestPieceInput
   }
 
   export type WeeklySubmissionUpdateInput = {
@@ -4384,7 +6593,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     year?: IntFieldUpdateOperationsInput | number
     weekNumber?: IntFieldUpdateOperationsInput | number
-    monthlyReviews?: MonthlyReviewUpdateManyWithoutBestPieceNestedInput
+    monthlyReview?: MonthlyReviewUpdateOneWithoutBestPieceNestedInput
   }
 
   export type WeeklySubmissionUncheckedUpdateInput = {
@@ -4396,7 +6605,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     year?: IntFieldUpdateOperationsInput | number
     weekNumber?: IntFieldUpdateOperationsInput | number
-    monthlyReviews?: MonthlyReviewUncheckedUpdateManyWithoutBestPieceNestedInput
+    monthlyReview?: MonthlyReviewUncheckedUpdateOneWithoutBestPieceNestedInput
   }
 
   export type WeeklySubmissionCreateManyInput = {
@@ -4432,46 +6641,53 @@ export namespace Prisma {
   }
 
   export type MonthlyReviewCreateInput = {
-    month: string
+    month: number
+    year: number
     notes?: string | null
-    bestPiece?: WeeklySubmissionCreateNestedOneWithoutMonthlyReviewsInput
+    bestPiece?: WeeklySubmissionCreateNestedOneWithoutMonthlyReviewInput
   }
 
   export type MonthlyReviewUncheckedCreateInput = {
     id?: number
-    month: string
+    month: number
+    year: number
     notes?: string | null
     bestPieceId?: number | null
   }
 
   export type MonthlyReviewUpdateInput = {
-    month?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    bestPiece?: WeeklySubmissionUpdateOneWithoutMonthlyReviewsNestedInput
+    bestPiece?: WeeklySubmissionUpdateOneWithoutMonthlyReviewNestedInput
   }
 
   export type MonthlyReviewUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    month?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bestPieceId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MonthlyReviewCreateManyInput = {
     id?: number
-    month: string
+    month: number
+    year: number
     notes?: string | null
     bestPieceId?: number | null
   }
 
   export type MonthlyReviewUpdateManyMutationInput = {
-    month?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MonthlyReviewUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    month?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     bestPieceId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -4487,6 +6703,135 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ExtraOrderByRelevanceInput = {
+    fields: ExtraOrderByRelevanceFieldEnum | ExtraOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type ExtraCountOrderByAggregateInput = {
+    id?: SortOrder
+    note?: SortOrder
+    streak?: SortOrder
+    picUrl?: SortOrder
+  }
+
+  export type ExtraAvgOrderByAggregateInput = {
+    id?: SortOrder
+    streak?: SortOrder
+  }
+
+  export type ExtraMaxOrderByAggregateInput = {
+    id?: SortOrder
+    note?: SortOrder
+    streak?: SortOrder
+    picUrl?: SortOrder
+  }
+
+  export type ExtraMinOrderByAggregateInput = {
+    id?: SortOrder
+    note?: SortOrder
+    streak?: SortOrder
+    picUrl?: SortOrder
+  }
+
+  export type ExtraSumOrderByAggregateInput = {
+    id?: SortOrder
+    streak?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -4496,6 +6841,73 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SavingsEntryOrderByRelevanceInput = {
+    fields: SavingsEntryOrderByRelevanceFieldEnum | SavingsEntryOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type SavingsEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SavingsEntryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type SavingsEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SavingsEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SavingsEntrySumOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -4535,57 +6947,12 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -4599,19 +6966,9 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type MonthlyReviewListRelationFilter = {
-    every?: MonthlyReviewWhereInput
-    some?: MonthlyReviewWhereInput
-    none?: MonthlyReviewWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
-  export type MonthlyReviewOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type MonthlyReviewNullableScalarRelationFilter = {
+    is?: MonthlyReviewWhereInput | null
+    isNot?: MonthlyReviewWhereInput | null
   }
 
   export type WeeklySubmissionOrderByRelevanceInput = {
@@ -4672,24 +7029,6 @@ export namespace Prisma {
     weekNumber?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -4706,32 +7045,6 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type WeeklySubmissionNullableScalarRelationFilter = {
     is?: WeeklySubmissionWhereInput | null
     isNot?: WeeklySubmissionWhereInput | null
@@ -4743,21 +7056,30 @@ export namespace Prisma {
     search: string
   }
 
+  export type MonthlyReviewMonthYearCompoundUniqueInput = {
+    month: number
+    year: number
+  }
+
   export type MonthlyReviewCountOrderByAggregateInput = {
     id?: SortOrder
     month?: SortOrder
+    year?: SortOrder
     notes?: SortOrder
     bestPieceId?: SortOrder
   }
 
   export type MonthlyReviewAvgOrderByAggregateInput = {
     id?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
     bestPieceId?: SortOrder
   }
 
   export type MonthlyReviewMaxOrderByAggregateInput = {
     id?: SortOrder
     month?: SortOrder
+    year?: SortOrder
     notes?: SortOrder
     bestPieceId?: SortOrder
   }
@@ -4765,55 +7087,28 @@ export namespace Prisma {
   export type MonthlyReviewMinOrderByAggregateInput = {
     id?: SortOrder
     month?: SortOrder
+    year?: SortOrder
     notes?: SortOrder
     bestPieceId?: SortOrder
   }
 
   export type MonthlyReviewSumOrderByAggregateInput = {
     id?: SortOrder
+    month?: SortOrder
+    year?: SortOrder
     bestPieceId?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -4824,22 +7119,32 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type MonthlyReviewCreateNestedManyWithoutBestPieceInput = {
-    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput> | MonthlyReviewCreateWithoutBestPieceInput[] | MonthlyReviewUncheckedCreateWithoutBestPieceInput[]
-    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput | MonthlyReviewCreateOrConnectWithoutBestPieceInput[]
-    createMany?: MonthlyReviewCreateManyBestPieceInputEnvelope
-    connect?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type MonthlyReviewUncheckedCreateNestedManyWithoutBestPieceInput = {
-    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput> | MonthlyReviewCreateWithoutBestPieceInput[] | MonthlyReviewUncheckedCreateWithoutBestPieceInput[]
-    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput | MonthlyReviewCreateOrConnectWithoutBestPieceInput[]
-    createMany?: MonthlyReviewCreateManyBestPieceInputEnvelope
-    connect?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type MonthlyReviewCreateNestedOneWithoutBestPieceInput = {
+    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput>
+    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput
+    connect?: MonthlyReviewWhereUniqueInput
+  }
+
+  export type MonthlyReviewUncheckedCreateNestedOneWithoutBestPieceInput = {
+    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput>
+    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput
+    connect?: MonthlyReviewWhereUniqueInput
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -4850,60 +7155,40 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type MonthlyReviewUpdateManyWithoutBestPieceNestedInput = {
-    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput> | MonthlyReviewCreateWithoutBestPieceInput[] | MonthlyReviewUncheckedCreateWithoutBestPieceInput[]
-    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput | MonthlyReviewCreateOrConnectWithoutBestPieceInput[]
-    upsert?: MonthlyReviewUpsertWithWhereUniqueWithoutBestPieceInput | MonthlyReviewUpsertWithWhereUniqueWithoutBestPieceInput[]
-    createMany?: MonthlyReviewCreateManyBestPieceInputEnvelope
-    set?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    disconnect?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    delete?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    connect?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    update?: MonthlyReviewUpdateWithWhereUniqueWithoutBestPieceInput | MonthlyReviewUpdateWithWhereUniqueWithoutBestPieceInput[]
-    updateMany?: MonthlyReviewUpdateManyWithWhereWithoutBestPieceInput | MonthlyReviewUpdateManyWithWhereWithoutBestPieceInput[]
-    deleteMany?: MonthlyReviewScalarWhereInput | MonthlyReviewScalarWhereInput[]
+  export type MonthlyReviewUpdateOneWithoutBestPieceNestedInput = {
+    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput>
+    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput
+    upsert?: MonthlyReviewUpsertWithoutBestPieceInput
+    disconnect?: MonthlyReviewWhereInput | boolean
+    delete?: MonthlyReviewWhereInput | boolean
+    connect?: MonthlyReviewWhereUniqueInput
+    update?: XOR<XOR<MonthlyReviewUpdateToOneWithWhereWithoutBestPieceInput, MonthlyReviewUpdateWithoutBestPieceInput>, MonthlyReviewUncheckedUpdateWithoutBestPieceInput>
   }
 
-  export type MonthlyReviewUncheckedUpdateManyWithoutBestPieceNestedInput = {
-    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput> | MonthlyReviewCreateWithoutBestPieceInput[] | MonthlyReviewUncheckedCreateWithoutBestPieceInput[]
-    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput | MonthlyReviewCreateOrConnectWithoutBestPieceInput[]
-    upsert?: MonthlyReviewUpsertWithWhereUniqueWithoutBestPieceInput | MonthlyReviewUpsertWithWhereUniqueWithoutBestPieceInput[]
-    createMany?: MonthlyReviewCreateManyBestPieceInputEnvelope
-    set?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    disconnect?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    delete?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    connect?: MonthlyReviewWhereUniqueInput | MonthlyReviewWhereUniqueInput[]
-    update?: MonthlyReviewUpdateWithWhereUniqueWithoutBestPieceInput | MonthlyReviewUpdateWithWhereUniqueWithoutBestPieceInput[]
-    updateMany?: MonthlyReviewUpdateManyWithWhereWithoutBestPieceInput | MonthlyReviewUpdateManyWithWhereWithoutBestPieceInput[]
-    deleteMany?: MonthlyReviewScalarWhereInput | MonthlyReviewScalarWhereInput[]
+  export type MonthlyReviewUncheckedUpdateOneWithoutBestPieceNestedInput = {
+    create?: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput>
+    connectOrCreate?: MonthlyReviewCreateOrConnectWithoutBestPieceInput
+    upsert?: MonthlyReviewUpsertWithoutBestPieceInput
+    disconnect?: MonthlyReviewWhereInput | boolean
+    delete?: MonthlyReviewWhereInput | boolean
+    connect?: MonthlyReviewWhereUniqueInput
+    update?: XOR<XOR<MonthlyReviewUpdateToOneWithWhereWithoutBestPieceInput, MonthlyReviewUpdateWithoutBestPieceInput>, MonthlyReviewUncheckedUpdateWithoutBestPieceInput>
   }
 
-  export type WeeklySubmissionCreateNestedOneWithoutMonthlyReviewsInput = {
-    create?: XOR<WeeklySubmissionCreateWithoutMonthlyReviewsInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewsInput>
-    connectOrCreate?: WeeklySubmissionCreateOrConnectWithoutMonthlyReviewsInput
+  export type WeeklySubmissionCreateNestedOneWithoutMonthlyReviewInput = {
+    create?: XOR<WeeklySubmissionCreateWithoutMonthlyReviewInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewInput>
+    connectOrCreate?: WeeklySubmissionCreateOrConnectWithoutMonthlyReviewInput
     connect?: WeeklySubmissionWhereUniqueInput
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type WeeklySubmissionUpdateOneWithoutMonthlyReviewsNestedInput = {
-    create?: XOR<WeeklySubmissionCreateWithoutMonthlyReviewsInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewsInput>
-    connectOrCreate?: WeeklySubmissionCreateOrConnectWithoutMonthlyReviewsInput
-    upsert?: WeeklySubmissionUpsertWithoutMonthlyReviewsInput
+  export type WeeklySubmissionUpdateOneWithoutMonthlyReviewNestedInput = {
+    create?: XOR<WeeklySubmissionCreateWithoutMonthlyReviewInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewInput>
+    connectOrCreate?: WeeklySubmissionCreateOrConnectWithoutMonthlyReviewInput
+    upsert?: WeeklySubmissionUpsertWithoutMonthlyReviewInput
     disconnect?: WeeklySubmissionWhereInput | boolean
     delete?: WeeklySubmissionWhereInput | boolean
     connect?: WeeklySubmissionWhereUniqueInput
-    update?: XOR<XOR<WeeklySubmissionUpdateToOneWithWhereWithoutMonthlyReviewsInput, WeeklySubmissionUpdateWithoutMonthlyReviewsInput>, WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewsInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+    update?: XOR<XOR<WeeklySubmissionUpdateToOneWithWhereWithoutMonthlyReviewInput, WeeklySubmissionUpdateWithoutMonthlyReviewInput>, WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4917,20 +7202,30 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -4960,54 +7255,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -5026,7 +7273,7 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
     notIn?: number[] | null
@@ -5034,7 +7281,77 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5053,63 +7370,16 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
   export type MonthlyReviewCreateWithoutBestPieceInput = {
-    month: string
+    month: number
+    year: number
     notes?: string | null
   }
 
   export type MonthlyReviewUncheckedCreateWithoutBestPieceInput = {
     id?: number
-    month: string
+    month: number
+    year: number
     notes?: string | null
   }
 
@@ -5118,116 +7388,86 @@ export namespace Prisma {
     create: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput>
   }
 
-  export type MonthlyReviewCreateManyBestPieceInputEnvelope = {
-    data: MonthlyReviewCreateManyBestPieceInput | MonthlyReviewCreateManyBestPieceInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MonthlyReviewUpsertWithWhereUniqueWithoutBestPieceInput = {
-    where: MonthlyReviewWhereUniqueInput
+  export type MonthlyReviewUpsertWithoutBestPieceInput = {
     update: XOR<MonthlyReviewUpdateWithoutBestPieceInput, MonthlyReviewUncheckedUpdateWithoutBestPieceInput>
     create: XOR<MonthlyReviewCreateWithoutBestPieceInput, MonthlyReviewUncheckedCreateWithoutBestPieceInput>
+    where?: MonthlyReviewWhereInput
   }
 
-  export type MonthlyReviewUpdateWithWhereUniqueWithoutBestPieceInput = {
-    where: MonthlyReviewWhereUniqueInput
+  export type MonthlyReviewUpdateToOneWithWhereWithoutBestPieceInput = {
+    where?: MonthlyReviewWhereInput
     data: XOR<MonthlyReviewUpdateWithoutBestPieceInput, MonthlyReviewUncheckedUpdateWithoutBestPieceInput>
   }
 
-  export type MonthlyReviewUpdateManyWithWhereWithoutBestPieceInput = {
-    where: MonthlyReviewScalarWhereInput
-    data: XOR<MonthlyReviewUpdateManyMutationInput, MonthlyReviewUncheckedUpdateManyWithoutBestPieceInput>
-  }
-
-  export type MonthlyReviewScalarWhereInput = {
-    AND?: MonthlyReviewScalarWhereInput | MonthlyReviewScalarWhereInput[]
-    OR?: MonthlyReviewScalarWhereInput[]
-    NOT?: MonthlyReviewScalarWhereInput | MonthlyReviewScalarWhereInput[]
-    id?: IntFilter<"MonthlyReview"> | number
-    month?: StringFilter<"MonthlyReview"> | string
-    notes?: StringNullableFilter<"MonthlyReview"> | string | null
-    bestPieceId?: IntNullableFilter<"MonthlyReview"> | number | null
-  }
-
-  export type WeeklySubmissionCreateWithoutMonthlyReviewsInput = {
-    title?: string | null
-    description?: string | null
-    image?: string | null
-    hoursSpent?: number | null
-    date: Date | string
-    year: number
-    weekNumber: number
-  }
-
-  export type WeeklySubmissionUncheckedCreateWithoutMonthlyReviewsInput = {
-    id?: number
-    title?: string | null
-    description?: string | null
-    image?: string | null
-    hoursSpent?: number | null
-    date: Date | string
-    year: number
-    weekNumber: number
-  }
-
-  export type WeeklySubmissionCreateOrConnectWithoutMonthlyReviewsInput = {
-    where: WeeklySubmissionWhereUniqueInput
-    create: XOR<WeeklySubmissionCreateWithoutMonthlyReviewsInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewsInput>
-  }
-
-  export type WeeklySubmissionUpsertWithoutMonthlyReviewsInput = {
-    update: XOR<WeeklySubmissionUpdateWithoutMonthlyReviewsInput, WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewsInput>
-    create: XOR<WeeklySubmissionCreateWithoutMonthlyReviewsInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewsInput>
-    where?: WeeklySubmissionWhereInput
-  }
-
-  export type WeeklySubmissionUpdateToOneWithWhereWithoutMonthlyReviewsInput = {
-    where?: WeeklySubmissionWhereInput
-    data: XOR<WeeklySubmissionUpdateWithoutMonthlyReviewsInput, WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewsInput>
-  }
-
-  export type WeeklySubmissionUpdateWithoutMonthlyReviewsInput = {
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    hoursSpent?: NullableFloatFieldUpdateOperationsInput | number | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    year?: IntFieldUpdateOperationsInput | number
-    weekNumber?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    hoursSpent?: NullableFloatFieldUpdateOperationsInput | number | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    year?: IntFieldUpdateOperationsInput | number
-    weekNumber?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type MonthlyReviewCreateManyBestPieceInput = {
-    id?: number
-    month: string
-    notes?: string | null
-  }
-
   export type MonthlyReviewUpdateWithoutBestPieceInput = {
-    month?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MonthlyReviewUncheckedUpdateWithoutBestPieceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    month?: StringFieldUpdateOperationsInput | string
+    month?: IntFieldUpdateOperationsInput | number
+    year?: IntFieldUpdateOperationsInput | number
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type MonthlyReviewUncheckedUpdateManyWithoutBestPieceInput = {
+  export type WeeklySubmissionCreateWithoutMonthlyReviewInput = {
+    title?: string | null
+    description?: string | null
+    image?: string | null
+    hoursSpent?: number | null
+    date: Date | string
+    year: number
+    weekNumber: number
+  }
+
+  export type WeeklySubmissionUncheckedCreateWithoutMonthlyReviewInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    image?: string | null
+    hoursSpent?: number | null
+    date: Date | string
+    year: number
+    weekNumber: number
+  }
+
+  export type WeeklySubmissionCreateOrConnectWithoutMonthlyReviewInput = {
+    where: WeeklySubmissionWhereUniqueInput
+    create: XOR<WeeklySubmissionCreateWithoutMonthlyReviewInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewInput>
+  }
+
+  export type WeeklySubmissionUpsertWithoutMonthlyReviewInput = {
+    update: XOR<WeeklySubmissionUpdateWithoutMonthlyReviewInput, WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewInput>
+    create: XOR<WeeklySubmissionCreateWithoutMonthlyReviewInput, WeeklySubmissionUncheckedCreateWithoutMonthlyReviewInput>
+    where?: WeeklySubmissionWhereInput
+  }
+
+  export type WeeklySubmissionUpdateToOneWithWhereWithoutMonthlyReviewInput = {
+    where?: WeeklySubmissionWhereInput
+    data: XOR<WeeklySubmissionUpdateWithoutMonthlyReviewInput, WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewInput>
+  }
+
+  export type WeeklySubmissionUpdateWithoutMonthlyReviewInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursSpent?: NullableFloatFieldUpdateOperationsInput | number | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    year?: IntFieldUpdateOperationsInput | number
+    weekNumber?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type WeeklySubmissionUncheckedUpdateWithoutMonthlyReviewInput = {
     id?: IntFieldUpdateOperationsInput | number
-    month?: StringFieldUpdateOperationsInput | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    hoursSpent?: NullableFloatFieldUpdateOperationsInput | number | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    year?: IntFieldUpdateOperationsInput | number
+    weekNumber?: IntFieldUpdateOperationsInput | number
   }
 
 

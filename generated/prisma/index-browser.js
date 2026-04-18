@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.5.0
- * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+ * Prisma Client JS version: 7.7.0
+ * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 Prisma.prismaVersion = {
-  client: "7.5.0",
-  engine: "280c870be64f457428992c43c1f6d557fab6e29e"
+  client: "7.7.0",
+  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -120,6 +120,20 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ExtraScalarFieldEnum = {
+  id: 'id',
+  note: 'note',
+  streak: 'streak',
+  picUrl: 'picUrl'
+};
+
+exports.Prisma.SavingsEntryScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  note: 'note',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.DailyRoutineScalarFieldEnum = {
   id: 'id',
   date: 'date',
@@ -142,6 +156,7 @@ exports.Prisma.WeeklySubmissionScalarFieldEnum = {
 exports.Prisma.MonthlyReviewScalarFieldEnum = {
   id: 'id',
   month: 'month',
+  year: 'year',
   notes: 'notes',
   bestPieceId: 'bestPieceId'
 };
@@ -156,6 +171,15 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.ExtraOrderByRelevanceFieldEnum = {
+  note: 'note',
+  picUrl: 'picUrl'
+};
+
+exports.Prisma.SavingsEntryOrderByRelevanceFieldEnum = {
+  note: 'note'
+};
+
 exports.Prisma.WeeklySubmissionOrderByRelevanceFieldEnum = {
   title: 'title',
   description: 'description',
@@ -163,12 +187,13 @@ exports.Prisma.WeeklySubmissionOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.MonthlyReviewOrderByRelevanceFieldEnum = {
-  month: 'month',
   notes: 'notes'
 };
 
 
 exports.Prisma.ModelName = {
+  Extra: 'Extra',
+  SavingsEntry: 'SavingsEntry',
   DailyRoutine: 'DailyRoutine',
   WeeklySubmission: 'WeeklySubmission',
   MonthlyReview: 'MonthlyReview'

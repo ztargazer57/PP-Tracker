@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { CalendarCheck, File, LayoutDashboardIcon, ClipboardList } from "lucide-react"
+import { CalendarCheck, LayoutDashboardIcon, ClipboardList } from "lucide-react"
 import Link from "next/link"
 import { Separator } from "./ui/separator"
 

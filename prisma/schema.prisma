@@ -5,43 +5,60 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
 }
 
+model Extra {
+  id     Int     @id @default(autoincrement())
+  note   String?
+  streak Int?
+  picUrl String?
+}
+
+model SavingsEntry {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  note      String?
+  createdAt DateTime @default(now())
+}
+
 model DailyRoutine {
-id Int @id @default(autoincrement())
-date DateTime @unique
-gestureDrawing Boolean @default(false)
-construction Boolean @default(false)
-targetedPractice Boolean @default(false)
+  id               Int      @id @default(autoincrement())
+  date             DateTime @unique
+  gestureDrawing   Boolean  @default(false)
+  construction     Boolean  @default(false)
+  targetedPractice Boolean  @default(false)
 }
 
 model WeeklySubmission {
-    id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-    title String?
-    description String?
-    image String?
-    hoursSpent Float?
+  title       String?
+  description String?
+  image       String?
+  hoursSpent  Float?
 
-    date DateTime
-    year Int
-    weekNumber Int
+  date       DateTime
+  year       Int
+  weekNumber Int
 
-    monthlyReviews MonthlyReview[]
+  monthlyReview MonthlyReview?
 
-    @@unique([year, weekNumber], name: "year_weekNumber")
+  @@unique([year, weekNumber], name: "year_weekNumber")
 }
 
 model MonthlyReview {
-    id Int @id @default(autoincrement())
-    month String
-    notes String?
-    bestPieceId Int?
+  id          Int     @id @default(autoincrement())
+  month       Int
+  year        Int
+  notes       String?
+  bestPieceId Int?    @unique
 
-    bestPiece WeeklySubmission? @relation(fields: [bestPieceId], references: [id])
+  bestPiece WeeklySubmission? @relation(fields: [bestPieceId], references: [id])
+
+  @@unique([month, year])
 }

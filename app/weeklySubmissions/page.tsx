@@ -21,8 +21,6 @@ import {
   fetchWeeklySubmissionsSubmit,
   fetchWeeklySubmissionStatus,
 } from "@/lib/system";
-import { float32 } from "zod/v4-mini";
-import { postWeeklySubmission } from "@/lib/logic";
 
 type WeeklySubmissionData = {
   title?: string | null;
@@ -35,6 +33,7 @@ type WeeklySubmissionData = {
 
 export default function WeeklySubmissionsPage() {
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [existingImage, setExistingImage] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -62,7 +61,7 @@ export default function WeeklySubmissionsPage() {
           description: res.description ?? "",
           hoursSpent: res.hoursSpent ?? undefined,
           date: res.date ? new Date(res.date) : new Date(),
-          weekNumber: res.weekNumber ? res.weekNumber : undefined,
+          weekNumber: res.weekNumber ?? undefined,
           image: undefined,
         });
       } finally {
@@ -81,47 +80,84 @@ export default function WeeklySubmissionsPage() {
     };
   }, [previewUrl]);
 
+  function formatLocalDate(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  async function uploadToCloudinary(file: File) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("/api/cloudinary/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error || "Failed to upload image.");
+  }
+
+  return result.secure_url as string;
+}
+  async function onSubmit(data: z.infer<typeof weeklySubmissionFormSchema>) {
+    try {
+      setSaving(true);
+
+      let imageUrl = existingImage ?? "";
+
+      if (data.image instanceof File) {
+        imageUrl = await uploadToCloudinary(data.image);
+      }
+
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", String(data.description ?? ""));
+      formData.append("hoursSpent", String(data.hoursSpent));
+      formData.append("date", new Date(data.date).toISOString());
+      formData.append("weekNumber", String(data.weekNumber ?? ""));
+      formData.append("image", imageUrl);
+
+      await fetchWeeklySubmissionsSubmit(formData);
+
+      setExistingImage(imageUrl);
+      setPreviewUrl(null);
+      form.setValue("image", undefined);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to save submission.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   const displayImage = previewUrl || existingImage;
 
   if (loading) {
     return <>Loading...</>;
   }
 
-  async function onSubmit(data: z.infer<typeof weeklySubmissionFormSchema>) {
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", String(data.description));
-    formData.append("hoursSpent", String(data.hoursSpent));
-    formData.append("date", new Date(data.date).toISOString());
-    formData.append("weekNumber", String(data.weekNumber));
-
-    if (data.image instanceof File) {
-      formData.append("image", data.image);
-    } else if (existingImage) {
-      formData.append("existingImage", existingImage);
-    }
-    const req = await fetchWeeklySubmissionsSubmit(formData);
-  }
   return (
     <div>
-      <div className="px-5 py-3">
-        <h1>Submissions</h1>
+      <div className="py-3">
+        <h1 className="text-2xl">Submissions</h1>
       </div>
 
       <div className="min-w-full">
         <CarouselSize />
       </div>
 
-      <h1 className="px-5 py-3">This Week's Submission</h1>
-
-      {/* Weekly Submissiom Form */}
+      <h1 className="mt-4 py-3 text-2xl">This Week&apos;s Submission</h1>
 
       <form id="form-weeklySub" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
-          <div className="grid grid-cols-1 sm:grid-cols-2 p-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 p-3 sm:grid-cols-2">
             <div className="flex flex-col gap-5">
               <div className="flex gap-3">
-                {/* Title */}
                 <Controller
                   name="title"
                   control={form.control}
@@ -142,7 +178,6 @@ export default function WeeklySubmissionsPage() {
                   )}
                 />
 
-                {/* Time Duration */}
                 <div className="m-w-40">
                   <Controller
                     name="hoursSpent"
@@ -191,7 +226,6 @@ export default function WeeklySubmissionsPage() {
                 </div>
               </div>
 
-              {/* Description */}
               <Controller
                 name="description"
                 control={form.control}
@@ -212,7 +246,6 @@ export default function WeeklySubmissionsPage() {
                 )}
               />
 
-              {/* Date */}
               <div className="flex">
                 <Controller
                   name="date"
@@ -222,10 +255,10 @@ export default function WeeklySubmissionsPage() {
                       <Input
                         value={
                           field.value instanceof Date
-                            ? field.value.toISOString().split("T")[0]
+                            ? formatLocalDate(field.value)
                             : ""
                         }
-                        className="text-gray-400 border-0 max-w-50"
+                        className="max-w-50 border-0 text-gray-400"
                         type="date"
                         id="form-weeklySub-date"
                         aria-invalid={fieldState.invalid}
@@ -240,7 +273,6 @@ export default function WeeklySubmissionsPage() {
                   )}
                 />
 
-                {/* Week Number */}
                 <div className="ml-auto">
                   <Controller
                     name="weekNumber"
@@ -268,24 +300,21 @@ export default function WeeklySubmissionsPage() {
               </div>
             </div>
 
-            {/* File Upload Group */}
-            <div className="flex flex-col gap-5 w-full items-center justify-center">
-              {/* Image Preview */}
+            <div className="flex w-full flex-col items-center justify-center gap-5">
               <div className="min-h-60 max-h-fit min-w-full">
                 {displayImage ? (
                   <img
                     src={displayImage}
                     alt="Preview"
-                    className="mt-3 h-70 w-fit rounded-md mx-auto object-cover"
+                    className="mx-auto mt-3 h-70 w-fit rounded-md object-cover"
                   />
                 ) : (
-                  <div className="h-full w-70 flex items-center justify-center mx-auto border-2 rounded-xl">
-                    <p className="text-gray-400 text-sm">Image goes here...</p>
+                  <div className="mx-auto flex h-full w-70 items-center justify-center rounded-xl border-2">
+                    <p className="text-sm text-gray-400">Image goes here...</p>
                   </div>
                 )}
               </div>
 
-              {/* Image Upload */}
               <div className="flex gap-3">
                 <div className="max-w-30">
                   <Controller
@@ -296,7 +325,7 @@ export default function WeeklySubmissionsPage() {
                         <div className="space-y-2">
                           <label
                             htmlFor="image-upload"
-                            className="inline-flex cursor-pointer items-center rounded-lg border-2 bg-blue-600 text-white px-2 py-1 text-sm hover:opacity-90"
+                            className="inline-flex cursor-pointer items-center rounded-lg border-2 bg-blue-600 px-2 py-1 text-sm text-white hover:opacity-90"
                           >
                             Upload image
                           </label>
@@ -332,8 +361,13 @@ export default function WeeklySubmissionsPage() {
                   />
                 </div>
 
-                {/* Submit Button */}
-                <Button className="ml-auto border-2 border-green-600 bg-green-600/10 hoverbluereen-600/60 text-white text-sm">Save</Button>
+                <Button
+                  type="submit"
+                  disabled={saving}
+                  className="ml-auto border-2 border-green-600 bg-green-600 text-sm text-white hover:bg-green-700"
+                >
+                  {saving ? "Saving..." : "Save"}
+                </Button>
               </div>
             </div>
           </div>

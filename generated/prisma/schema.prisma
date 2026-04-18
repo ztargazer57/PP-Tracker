@@ -12,6 +12,20 @@ datasource db {
   provider = "mysql"
 }
 
+model Extra {
+  id     Int     @id @default(autoincrement())
+  note   String?
+  streak Int?
+  picUrl String?
+}
+
+model SavingsEntry {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  note      String?
+  createdAt DateTime @default(now())
+}
+
 model DailyRoutine {
   id               Int      @id @default(autoincrement())
   date             DateTime @unique
@@ -32,16 +46,19 @@ model WeeklySubmission {
   year       Int
   weekNumber Int
 
-  monthlyReviews MonthlyReview[]
+  monthlyReview MonthlyReview?
 
   @@unique([year, weekNumber], name: "year_weekNumber")
 }
 
 model MonthlyReview {
   id          Int     @id @default(autoincrement())
-  month       String
+  month       Int
+  year        Int
   notes       String?
-  bestPieceId Int?
+  bestPieceId Int?    @unique
 
   bestPiece WeeklySubmission? @relation(fields: [bestPieceId], references: [id])
+
+  @@unique([month, year])
 }

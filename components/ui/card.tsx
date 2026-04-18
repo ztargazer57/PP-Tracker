@@ -12,11 +12,54 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        // BASE (keep dark)
+        "group/card relative flex flex-col gap-4 overflow-hidden rounded-xl py-4 text-sm",
+        "bg-card text-card-foreground ring-1 ring-foreground/10",
+
+        // 🌑 DIAGONAL DARK GRADIENT LAYER
+        "bg-[linear-gradient(135deg,rgba(255,255,255,0.04),rgba(0,0,0,0.6))]",
+
+        // 🧠 depth
+        "shadow-[0_10px_30px_rgba(0,0,0,0.45)]",
+
+        // variants
+        "data-[size=sm]:gap-3 data-[size=sm]:py-3",
+
+        "*:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+
         className
       )}
       {...props}
-    />
+    >
+      {/* ✨ SHARP DIAGONAL SHINE (main highlight) */}
+      <div
+        className="
+          pointer-events-none absolute inset-0 opacity-30
+          bg-[linear-gradient(120deg,transparent_30%,rgba(255,255,255,0.25)_50%,transparent_70%)]
+        "
+      />
+
+      {/* 🌫️ DARK CONTRAST LAYER (makes shine pop more) */}
+      <div
+        className="
+          pointer-events-none absolute inset-0
+          bg-[linear-gradient(135deg,rgba(0,0,0,0.4),transparent_40%,rgba(0,0,0,0.6))]
+        "
+      />
+
+      {/* 💡 TOP EDGE LIGHT (subtle, not flashy) */}
+      <div
+        className="
+          pointer-events-none absolute inset-x-0 top-0 h-[1px]
+          bg-white/20
+        "
+      />
+
+      {/* CONTENT */}
+      <div className="relative z-10 flex flex-col gap-4">
+        {props.children}
+      </div>
+    </div>
   )
 }
 

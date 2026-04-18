@@ -1,50 +1,47 @@
 import { NextResponse } from "next/server";
 import { getWeeklySubmissions, postWeeklySubmission } from "@/lib/logic";
-import path from "path";
-import { promises as fs } from "fs";
 
 export async function GET() {
-  const response = await getWeeklySubmissions();
-  return NextResponse.json(response);
+  try {
+    const response = await getWeeklySubmissions();
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error("Failed to get weekly submissions:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch weekly submission." },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
+  try {
+    const formData = await request.formData();
 
-  const title = formData.get("title") as string;
-  const description = formData.get("description") as string;
-  const hoursSpent = Number(formData.get("hoursSpent"));
-  const date = formData.get("date") as string;
-  const weekNumber = Number(formData.get("weekNumber"));
+    const title = String(formData.get("title") ?? "");
+    const description = String(formData.get("description") ?? "");
+    const hoursSpent = Number(formData.get("hoursSpent") ?? 0);
+    const date = String(formData.get("date") ?? "");
+    const weekNumber = Number(formData.get("weekNumber") ?? 0);
 
-  const newImage = formData.get("image");
-  const existingImage = formData.get("existingImage");
+    // This is now expected to be a Cloudinary URL string
+    const image = String(formData.get("image") ?? "");
 
-  let imageToSave = "";
-  if (newImage instanceof File && newImage.size > 0 && !(newImage.name === existingImage)) {
-    const bytes = await newImage.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const data = await postWeeklySubmission(
+      title,
+      description,
+      hoursSpent,
+      date,
+      weekNumber,
+      image
+    );
 
-    const uploadDir = path.join(process.cwd(), "public/uploads");
-    await fs.mkdir(uploadDir, { recursive: true });
-
-    const fileName = new Date().toISOString().split("T")[0];
-    const filePath = path.join(uploadDir, fileName);
-
-    await fs.writeFile(filePath, buffer);
-
-    imageToSave = `/uploads/${fileName}`;
-  } else if (typeof existingImage === "string") {
-    imageToSave = existingImage;
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Failed to save weekly submission:", error);
+    return NextResponse.json(
+      { error: "Failed to save weekly submission." },
+      { status: 500 }
+    );
   }
-
-  const data = await postWeeklySubmission(
-    title,
-    description,
-    hoursSpent,
-    date,
-    weekNumber,
-    imageToSave,
-  );
-  return NextResponse.json(data);
 }
