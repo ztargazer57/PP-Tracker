@@ -166,28 +166,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.ExtraOrderByRelevanceFieldEnum = {
-  note: 'note',
-  picUrl: 'picUrl'
-};
-
-exports.Prisma.SavingsEntryOrderByRelevanceFieldEnum = {
-  note: 'note'
-};
-
-exports.Prisma.WeeklySubmissionOrderByRelevanceFieldEnum = {
-  title: 'title',
-  description: 'description',
-  image: 'image'
-};
-
-exports.Prisma.MonthlyReviewOrderByRelevanceFieldEnum = {
-  notes: 'notes'
 };
 
 
