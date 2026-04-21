@@ -41,7 +41,7 @@ export default function RootLayout({
           <div className="min-h-screen w-full flex flex-col relative">
             <Navbar />
             <div className="flex-1 flex justify-center pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pl-28">
-              <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+              <div className="w-full max-w-6xl px-2 xs:px-1 sm:px-1 lg:px-6">
                 {children}
               </div>
             </div>

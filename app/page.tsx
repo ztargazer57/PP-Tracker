@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-30 grid grid-cols-1 gap-7 p-4 lg:grid-cols-[330px_1fr]">
+    <div className="w-full min-h-30 grid grid-cols-1 gap-7 p-4 px-1 sm:px-1 md:p-4 lg:p-4 lg:grid-cols-[330px_1fr]">
       <Card className="h-fit w-full p-4 sm:p-5 lg:p-2">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-1 xl:grid-cols-1">
           <div className="w-full rounded-lg grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-1">

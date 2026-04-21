@@ -36,7 +36,7 @@ export default function DailyRoutineWidget() {
   };
 
   return (
-    <div className="min-w-70 w-90 mx-auto sm:w-100 md:w-100 lg:w-70">
+    <div className="min-w-60 w-80 mx-auto sm:w-80 md:w-100 lg:w-70">
       <h1 className="text-2xl text-center">Daily Routine</h1>
       <FieldGroup className="mt-5 gap-3">
         <Field orientation="horizontal">

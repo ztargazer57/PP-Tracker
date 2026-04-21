@@ -29,6 +29,23 @@ function formatDateKey(date: Date) {
   return `${y}-${m}-${d}`;
 }
 
+function getISOWeekInfo(date: Date) {
+  const temp = new Date(date);
+  temp.setHours(0, 0, 0, 0);
+
+  // Move to Thursday of the current ISO week
+  temp.setDate(temp.getDate() + 4 - (temp.getDay() || 7));
+
+  const isoYear = temp.getFullYear();
+  const yearStart = new Date(isoYear, 0, 1);
+
+  const weekNumber = Math.ceil(
+    ((temp.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
+  );
+
+  return { isoYear, weekNumber };
+}
+
 /* ---------------------------------- */
 /* Daily Routine                      */
 /* ---------------------------------- */
@@ -51,7 +68,7 @@ export async function ensureDailyRoutineRecords(daysToBackfill = 30) {
   });
 
   const existingKeys = new Set(
-    existing.map((row) => formatDateKey(startOfDay(row.date)))
+    existing.map((row) => formatDateKey(startOfDay(row.date))),
   );
 
   const missingRows: { date: Date }[] = [];
@@ -164,37 +181,21 @@ export async function postDailyRoutineUpdate(
 /* Weekly Submissions                 */
 /* ---------------------------------- */
 
-function getISOWeekNumber(date: Date) {
-  const temp = new Date(date);
-
-  // Set to nearest Thursday (ISO rule)
-  temp.setDate(temp.getDate() + 4 - (temp.getDay() || 7));
-
-  const yearStart = new Date(temp.getFullYear(), 0, 1);
-
-  const weekNo = Math.ceil(
-    ((temp.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
-  );
-
-  return weekNo;
-}
-
 export async function getWeeklySubmissions() {
   const now = new Date();
-  const currentWeek = getISOWeekNumber(now);
-  const currentYear = now.getFullYear();
+  const { isoYear, weekNumber } = getISOWeekInfo(now);
 
   const data = await prisma.weeklySubmission.upsert({
     where: {
       year_weekNumber: {
-        year: currentYear,
-        weekNumber: currentWeek,
+        year: isoYear,
+        weekNumber,
       },
     },
     update: {},
     create: {
-      year: currentYear,
-      weekNumber: currentWeek,
+      year: isoYear,
+      weekNumber,
       date: now,
     },
   });
@@ -207,26 +208,32 @@ export async function postWeeklySubmission(
   description: string,
   hoursSpent: number,
   date: string,
-  weekNumber: number,
   image: string,
 ) {
-  const now = new Date();
-  const currentWeek = getISOWeekNumber(now);
-  const currentYear = now.getFullYear();
+  const submissionDate = new Date(date);
+  const { isoYear, weekNumber } = getISOWeekInfo(submissionDate);
 
-  const data = await prisma.weeklySubmission.update({
+  const data = await prisma.weeklySubmission.upsert({
     where: {
       year_weekNumber: {
-        year: currentYear,
-        weekNumber: currentWeek,
+        year: isoYear,
+        weekNumber,
       },
     },
-    data: {
+    update: {
       title,
       description,
       hoursSpent,
-      date: new Date(date),
+      date: submissionDate,
+      image,
+    },
+    create: {
+      year: isoYear,
       weekNumber,
+      title,
+      description,
+      hoursSpent,
+      date: submissionDate,
       image,
     },
   });
@@ -236,6 +243,9 @@ export async function postWeeklySubmission(
 
 export async function getAllWeeklySubmissions() {
   return await prisma.weeklySubmission.findMany({
+    where: {
+      NOT: [{ image: null }, { image: "" }],
+    },
     orderBy: {
       date: "desc",
     },
@@ -244,6 +254,9 @@ export async function getAllWeeklySubmissions() {
 
 export async function getRandomWeeklySubmissions(limit = 10) {
   const submissions = await prisma.weeklySubmission.findMany({
+    where: {
+      NOT: [{ image: null }, { image: "" }],
+    },
     orderBy: {
       date: "desc",
     },
@@ -312,6 +325,7 @@ export async function getSubmissionsByMonth(month: string) {
         gte: new Date(year, monthNumber - 1, 1),
         lt: new Date(year, monthNumber, 1),
       },
+      NOT: [{ image: null }, { image: "" }],
     },
     orderBy: {
       date: "desc",
