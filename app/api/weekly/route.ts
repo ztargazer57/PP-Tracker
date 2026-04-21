@@ -22,9 +22,6 @@ export async function POST(request: Request) {
     const description = String(formData.get("description") ?? "");
     const hoursSpent = Number(formData.get("hoursSpent") ?? 0);
     const date = String(formData.get("date") ?? "");
-    const weekNumber = Number(formData.get("weekNumber") ?? 0);
-
-    // This is now expected to be a Cloudinary URL string
     const image = String(formData.get("image") ?? "");
 
     const data = await postWeeklySubmission(
@@ -32,7 +29,6 @@ export async function POST(request: Request) {
       description,
       hoursSpent,
       date,
-      weekNumber,
       image
     );
 
