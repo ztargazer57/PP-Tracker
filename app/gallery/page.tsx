@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { getAllWeeklySubmissions } from "@/lib/logic";
 
+export const dynamic = "force-dynamic";
+
 function formatGroupLabel(dateValue: Date | string) {
   const date = new Date(dateValue);
   return date.getFullYear().toString();
