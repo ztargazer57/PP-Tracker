@@ -5,15 +5,8 @@ import Notes from "@/components/Notes";
 import SavingsWidget from "@/components/SavingsWidget";
 import Streak from "@/components/Streak";
 import { Card } from "@/components/ui/card";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
-export default async function Home() {
-    const session = await getServerSession();
-
-  if (!session) {
-    redirect("/auth");
-  }
+export default function Home() {
   return (
     <div className="w-full min-h-30 grid grid-cols-1 gap-7 p-4 px-1 sm:px-1 md:p-4 lg:p-4 lg:grid-cols-[330px_1fr]">
       <Card className="h-fit w-full py-3 px-0 xs:px-1 sm:px-1 lg:p-2">

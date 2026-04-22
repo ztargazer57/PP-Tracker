@@ -3,7 +3,7 @@ import { Sour_Gummy, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import FloatingSidebar from "@/components/FloatingSidebar";
+
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -45,7 +45,6 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
-            <FloatingSidebar />
           </div>
         </ThemeProvider>
       </body>

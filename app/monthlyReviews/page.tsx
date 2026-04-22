@@ -1,122 +1,62 @@
 "use client";
 
-import Link from "next/link";
-import { getBestPieces } from "@/lib/system";
-import { useEffect, useMemo, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const monthlyCards = [
-  { id: 1, month: "January" },
-  { id: 2, month: "February" },
-  { id: 3, month: "March" },
-  { id: 4, month: "April" },
-  { id: 5, month: "May" },
-  { id: 6, month: "June" },
-  { id: 7, month: "July" },
-  { id: 8, month: "August" },
-  { id: 9, month: "September" },
-  { id: 10, month: "October" },
-  { id: 11, month: "November" },
-  { id: 12, month: "December" },
-];
-
-export default function MonthlyReviewsPage() {
-  const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [data, setData] = useState<any[]>([]);
+export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const yearOptions = useMemo(() => {
-    const years: number[] = [];
-    for (let year = currentYear; year >= 2020; year--) {
-      years.push(year);
-    }
-    return years;
-  }, [currentYear]);
+  const handleLogin = async () => {
+    setLoading(true);
+    setError("");
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        setLoading(true);
-        const result = await getBestPieces(selectedYear);
-        setData(result);
-      } catch (error) {
-        console.error("Error loading best pieces:", error);
-      } finally {
-        setLoading(false);
-      }
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    setLoading(false);
+
+    if (res?.ok) {
+      router.push("/dashboard");
+      router.refresh();
+      return;
     }
 
-    loadData();
-  }, [selectedYear]);
+    setError("Invalid email or password");
+  };
 
   return (
-    <div className="mt-4">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl">Monthly Reviews</h1>
+    <div style={{ maxWidth: 320, margin: "40px auto" }}>
+      <h1>Login</h1>
 
-        <div className="flex items-center gap-2">
-          <label htmlFor="year" className="text-sm">
-            Year
-          </label>
-          <select
-            id="year"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(Number(e.target.value))}
-            className="rounded-md border bg-background px-3 py-2 text-sm"
-          >
-            {yearOptions.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{ display: "block", width: "100%", marginBottom: 12 }}
+      />
 
-      {loading && <p className="mt-4 text-sm text-muted-foreground">Loading...</p>}
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        style={{ display: "block", width: "100%", marginBottom: 12 }}
+      />
 
-      <div className="grid grid-cols-1 mt-4 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {monthlyCards.map((month) => {
-          const review = data.find((item) => item.month === month.id);
-          const piece = review?.bestPiece;
-          const shortMonth = month.month.slice(0, 3).toUpperCase();
+      <button onClick={handleLogin} disabled={loading}>
+        {loading ? "Logging in..." : "Login"}
+      </button>
 
-          return (
-            <Link
-              key={month.id}
-              href={`/monthlyReviews/${month.month.toLowerCase()}?year=${selectedYear}`}
-              className="group"
-            >
-              <div className="relative h-56 overflow-hidden rounded-2xl border bg-secondary shadow-sm transition group-hover:scale-105">
-                {piece?.image ? (
-                  <>
-                    <img
-                      src={piece.image}
-                      alt={piece.title || month.month}
-                      className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/35 group-hover:bg-black/15 transition-colors duration-300" />
-                  </>
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-secondary">
-                    <span className="text-sm text-muted-foreground">
-                      No best piece yet
-                    </span>
-                  </div>
-                )}
-
-                <div className="absolute inset-0 flex items-end">
-                  <div className="absolute h-full w-12 flex flex-col items-center justify-center bg-black/60 text-white font-bold tracking-widest shadow-md group-hover:bg-black/80 transition">
-                    {shortMonth.split("").map((l, i) => (
-                      <span key={i}>{l}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }

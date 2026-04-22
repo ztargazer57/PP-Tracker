@@ -7,6 +7,14 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+}
+
 model Extra {
   id     Int     @id @default(autoincrement())
   note   String?
@@ -30,30 +38,26 @@ model DailyRoutine {
 }
 
 model WeeklySubmission {
-  id Int @id @default(autoincrement())
-
-  title       String?
-  description String?
-  image       String?
-  hoursSpent  Float?
-
-  date       DateTime
-  year       Int
-  weekNumber Int
-
+  id            Int            @id @default(autoincrement())
+  title         String?
+  description   String?
+  image         String?
+  hoursSpent    Float?
+  date          DateTime
+  year          Int
+  weekNumber    Int
   monthlyReview MonthlyReview?
 
   @@unique([year, weekNumber], name: "year_weekNumber")
 }
 
 model MonthlyReview {
-  id          Int     @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   month       Int
   year        Int
   notes       String?
-  bestPieceId Int?    @unique
-
-  bestPiece WeeklySubmission? @relation(fields: [bestPieceId], references: [id])
+  bestPieceId Int?              @unique
+  bestPiece   WeeklySubmission? @relation(fields: [bestPieceId], references: [id])
 
   @@unique([month, year])
 }

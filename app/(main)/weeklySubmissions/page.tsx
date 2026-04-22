@@ -7,7 +7,7 @@ import * as z from "zod";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { weeklySubmissionFormSchema } from "../schema/weeklySubmission";
+import { weeklySubmissionFormSchema } from "../../schema/weeklySubmission";
 import { CarouselSize } from "@/components/WeeklySubmissionCarousel";
 import {
   Select,
