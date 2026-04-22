@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import FloatingSidebar from "@/components/FloatingSidebar";
+import Navbar from "@/components/Navbar";
 
 export default function MainLayout({
   children,
@@ -7,9 +8,14 @@ export default function MainLayout({
   children: ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div className="min-h-screen">
       <FloatingSidebar />
-      <main style={{ flex: 1 }}>{children}</main>
+
+      <Navbar />
+
+      <main className="min-h-[calc(100vh-64px)] px-4 pt-4 pb-28 lg:pl-28 lg:pb-6">
+        {children}
+      </main>
     </div>
   );
 }

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Sour_Gummy, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -25,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="h-full antialiased">
-      <body className={`${space_grotesk.className} relative`}>
+      <body className={`${space_grotesk.className} min-h-screen relative`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -38,14 +36,7 @@ export default function RootLayout({
             <div className="absolute inset-0 opacity-40 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.8))]" />
           </div>
 
-          <div className="min-h-screen w-full flex flex-col relative">
-            <Navbar />
-            <div className="flex-1 flex justify-center pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pl-28">
-              <div className="w-full max-w-6xl px-2 xs:px-1 sm:px-1 lg:px-6">
-                {children}
-              </div>
-            </div>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
