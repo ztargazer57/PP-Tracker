@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { getAllWeeklySubmissions } from "@/lib/logic";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +39,10 @@ function groupByYear(submissions: any[]) {
 }
 
 export default async function GalleryPage() {
+    const session = await getServerSession();
+          if (!session) {
+            redirect("/auth");
+          }
   const submissions = await getAllWeeklySubmissions();
   const grouped = groupByYear(submissions);
 

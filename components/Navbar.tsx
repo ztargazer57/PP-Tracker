@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import LogoutButton from "./LogoutButton"
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false)
@@ -49,7 +50,7 @@ export default function Navbar() {
       </h1>
 
       {/* (optional placeholder right side) */}
-      <div className="w-6 h-6" />
+      <div className="w-6 h-6" ><LogoutButton/></div>
     </div>
   )
 }
