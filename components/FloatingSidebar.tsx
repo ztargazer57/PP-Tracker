@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { icon: LayoutDashboardIcon, label: "Dashboard", href: "/" },
   { icon: CalendarCheck, label: "Weekly Submissions", href: "/weeklySubmissions" },
-  { icon: ClipboardList, label: "Monthly Reviews", href: "/monthlyReviews" },
+  { icon: ClipboardList, label: "Monthly Reviews", href: "/MonthlyReviews" },
 ];
 
 export default function FloatingSidebar() {
