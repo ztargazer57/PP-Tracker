@@ -14,51 +14,50 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Field, FieldGroup } from "./ui/field";
 import RoutineItem from "./HoldButton";
 import {
   fetchDailyRoutineHistory,
-  // create this in @/lib/system
   updateDailyRoutineHistoryRecord,
 } from "@/lib/system";
+import {
+  DailyRoutineRecord,
+  emitDailyRoutineUpdated,
+} from "@/lib/dailyRoutineClient";
 
-type RoutineRecord = {
-  id: string | number;
-  date: string;
-  gestureDrawing: boolean;
-  construction: boolean;
-  targetedPractice: boolean;
-};
+type RoutineField =
+  | "gestureDrawing"
+  | "construction"
+  | "targetedPractice";
 
 export function DailyRoutineHistory() {
-  const [data, setData] = useState<RoutineRecord[]>([]);
-  const [selectedRecord, setSelectedRecord] = useState<RoutineRecord | null>(null);
-  const [editedRecord, setEditedRecord] = useState<RoutineRecord | null>(null);
+  const [data, setData] = useState<DailyRoutineRecord[]>([]);
+  const [editedRecord, setEditedRecord] = useState<DailyRoutineRecord | null>(null);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function loadData() {
-      const res = await fetchDailyRoutineHistory();
-      setData(res);
+      try {
+        const res = await fetchDailyRoutineHistory();
+        setData(res);
+      } catch (error) {
+        console.error("Failed to load routine history:", error);
+      }
     }
+
     loadData();
   }, []);
 
-  const handleRowClick = (record: RoutineRecord) => {
-    setSelectedRecord(record);
+  const handleRowClick = (record: DailyRoutineRecord) => {
     setEditedRecord({ ...record });
     setOpen(true);
   };
 
   const handleToggleChange = (
-    field: keyof Pick<
-      RoutineRecord,
-      "gestureDrawing" | "construction" | "targetedPractice"
-    >,
+    field: RoutineField,
     value: boolean | "indeterminate"
   ) => {
     const checked = value === true;
@@ -91,8 +90,9 @@ export function DailyRoutineHistory() {
         )
       );
 
+      emitDailyRoutineUpdated();
+
       setOpen(false);
-      setSelectedRecord(null);
       setEditedRecord(null);
     } catch (error) {
       console.error("Failed to update routine record:", error);
@@ -104,6 +104,7 @@ export function DailyRoutineHistory() {
   return (
     <div className="max-w-full mx-auto lg:w-full">
       <h1 className="text-2xl text-center">Routine History</h1>
+
       <Table>
         <TableHeader>
           <TableRow className="border-b-2">
@@ -176,16 +177,13 @@ export function DailyRoutineHistory() {
         onOpenChange={(value) => {
           setOpen(value);
           if (!value) {
-            setSelectedRecord(null);
             setEditedRecord(null);
           }
         }}
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>
-              Edit Routine Record
-            </DialogTitle>
+            <DialogTitle>Edit Routine Record</DialogTitle>
           </DialogHeader>
 
           {editedRecord && (
@@ -227,18 +225,20 @@ export function DailyRoutineHistory() {
               </FieldGroup>
             </div>
           )}
-            <div className="flex gap-3 ml-auto">
-                <Button
+
+          <div className="flex gap-3 ml-auto">
+            <Button
               variant="outline"
               onClick={() => setOpen(false)}
               disabled={saving}
             >
               Cancel
             </Button>
-            <Button onClick={handleSave} disabled={saving}>
+
+            <Button onClick={handleSave} disabled={saving || !editedRecord}>
               {saving ? "Saving..." : "Save"}
             </Button>
-            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

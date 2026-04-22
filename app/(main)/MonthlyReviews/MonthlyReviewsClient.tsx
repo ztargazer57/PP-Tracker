@@ -86,7 +86,7 @@ export default function MonthlyReviewsClient() {
           return (
             <Link
               key={month.id}
-              href={`/monthlyReviews/${month.month.toLowerCase()}?year=${selectedYear}`}
+              href={`/MonthlyReviews/${month.month.toLowerCase()}?year=${selectedYear}`}
               className="group"
             >
               <div className="relative h-56 overflow-hidden rounded-2xl border bg-secondary shadow-sm transition group-hover:scale-105">
