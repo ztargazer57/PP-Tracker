@@ -21,6 +21,7 @@ import {
   fetchWeeklySubmissionsSubmit,
   fetchWeeklySubmissionStatus,
 } from "@/lib/system";
+import { ManageWeeklySubmissionsButton } from "@/components/ManageWeeklySubmissionsButton";
 
 type WeeklySubmissionData = {
   title?: string | null;
@@ -143,8 +144,9 @@ export default function WeeklySubmissionsClient() {
 
   return (
     <div>
-      <div className="py-3">
+      <div className="py-3 w-full flex">
         <h1 className="text-2xl">Submissions</h1>
+        <div className="ml-auto"><ManageWeeklySubmissionsButton/></div>
       </div>
 
       <div className="min-w-full">

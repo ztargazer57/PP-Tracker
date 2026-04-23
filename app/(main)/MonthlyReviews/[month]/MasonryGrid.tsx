@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 
 const breakpointColumnsObj = {
-  default: 3,
+  default: 5,
   1024: 3,
   768: 2,
   640: 1,

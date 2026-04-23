@@ -89,6 +89,48 @@ export async function getRandomWeeklySubmissions() {
   return res.json();
 }
 
+// Weekly Manage
+
+export async function fetchManageWeeklySubmissions() {
+  const response = await fetch("/api/weekly/manage", {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch weekly submissions for management.");
+  }
+
+  return response.json();
+}
+
+export async function updateManageWeeklySubmission(
+  id: number,
+  payload: {
+    title: string;
+    description: string;
+    hoursSpent: number;
+    date: string;
+    image: string;
+  },
+) {
+  const response = await fetch(`/api/weekly/manage/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to update weekly submission.");
+  }
+
+  return data;
+}
+
 
 // Monthly Reviews
 

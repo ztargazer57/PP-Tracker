@@ -33,7 +33,6 @@ function getISOWeekInfo(date: Date) {
   const temp = new Date(date);
   temp.setHours(0, 0, 0, 0);
 
-  // Move to Thursday of the current ISO week
   temp.setDate(temp.getDate() + 4 - (temp.getDay() || 7));
 
   const isoYear = temp.getFullYear();
@@ -44,6 +43,26 @@ function getISOWeekInfo(date: Date) {
   );
 
   return { isoYear, weekNumber };
+}
+
+function getISOWeeksInYear(year: number) {
+  const dec28 = new Date(year, 11, 28);
+  return getISOWeekInfo(dec28).weekNumber;
+}
+
+function getISOWeekStartDate(year: number, weekNumber: number) {
+  const jan4 = new Date(year, 0, 4);
+  const jan4Day = jan4.getDay() || 7;
+
+  const mondayOfWeek1 = new Date(jan4);
+  mondayOfWeek1.setDate(jan4.getDate() - jan4Day + 1);
+  mondayOfWeek1.setHours(0, 0, 0, 0);
+
+  const target = new Date(mondayOfWeek1);
+  target.setDate(mondayOfWeek1.getDate() + (weekNumber - 1) * 7);
+  target.setHours(0, 0, 0, 0);
+
+  return target;
 }
 
 /* ---------------------------------- */
@@ -181,6 +200,61 @@ export async function postDailyRoutineUpdate(
 /* Weekly Submissions                 */
 /* ---------------------------------- */
 
+
+export async function ensureWeeklySubmissionRecords() {
+  const now = new Date();
+  const { isoYear: currentYear, weekNumber: currentWeek } = getISOWeekInfo(now);
+
+  const earliest = await prisma.weeklySubmission.findFirst({
+    orderBy: [{ year: "asc" }, { weekNumber: "asc" }],
+    select: {
+      year: true,
+    },
+  });
+
+  const startYear = earliest?.year ?? currentYear;
+
+  const existing = await prisma.weeklySubmission.findMany({
+    select: {
+      year: true,
+      weekNumber: true,
+    },
+  });
+
+  const existingKeys = new Set(
+    existing.map((row) => `${row.year}-${row.weekNumber}`),
+  );
+
+  const missingRows: {
+    year: number;
+    weekNumber: number;
+    date: Date;
+  }[] = [];
+
+  for (let year = startYear; year <= currentYear; year++) {
+    const maxWeek = year === currentYear ? currentWeek : getISOWeeksInYear(year);
+
+    for (let week = 1; week <= maxWeek; week++) {
+      const key = `${year}-${week}`;
+
+      if (!existingKeys.has(key)) {
+        missingRows.push({
+          year,
+          weekNumber: week,
+          date: getISOWeekStartDate(year, week),
+        });
+      }
+    }
+  }
+
+  if (missingRows.length > 0) {
+    await prisma.weeklySubmission.createMany({
+      data: missingRows,
+      skipDuplicates: true,
+    });
+  }
+}
+
 export async function getWeeklySubmissions() {
   const now = new Date();
   const { isoYear, weekNumber } = getISOWeekInfo(now);
@@ -241,6 +315,73 @@ export async function postWeeklySubmission(
   return data;
 }
 
+export async function getManageWeeklySubmissions() {
+  await ensureWeeklySubmissionRecords();
+
+  return await prisma.weeklySubmission.findMany({
+    orderBy: [
+      { year: "desc" },
+      { weekNumber: "desc" },
+    ],
+  });
+}
+
+export async function updateWeeklySubmissionById(
+  id: number,
+  payload: {
+    title: string;
+    description: string;
+    hoursSpent: number;
+    date: string;
+    image: string;
+  },
+) {
+  const submissionDate = new Date(payload.date);
+
+  if (Number.isNaN(submissionDate.getTime())) {
+    throw new Error("Invalid submission date.");
+  }
+
+  const { isoYear, weekNumber } = getISOWeekInfo(submissionDate);
+
+  const existing = await prisma.weeklySubmission.findUnique({
+    where: { id },
+    select: { id: true },
+  });
+
+  if (!existing) {
+    throw new Error("Weekly submission not found.");
+  }
+
+  const duplicate = await prisma.weeklySubmission.findFirst({
+    where: {
+      year: isoYear,
+      weekNumber,
+      NOT: { id },
+    },
+    select: { id: true },
+  });
+
+  if (duplicate) {
+    throw new Error(
+      `Another submission already exists for Year ${isoYear}, Week ${weekNumber}.`,
+    );
+  }
+
+  return await prisma.weeklySubmission.update({
+    where: { id },
+    data: {
+      title: payload.title,
+      description: payload.description,
+      hoursSpent: payload.hoursSpent,
+      date: submissionDate,
+      image: payload.image,
+      year: isoYear,
+      weekNumber,
+    },
+  });
+}
+
 export async function getAllWeeklySubmissions() {
   return await prisma.weeklySubmission.findMany({
     where: {
@@ -269,6 +410,49 @@ export async function getRandomWeeklySubmissions(limit = 10) {
 
   return submissions.slice(0, limit);
 }
+
+// Weekly Manage
+
+export async function fetchManageWeeklySubmissions() {
+  const response = await fetch("/api/weekly/manage", {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch weekly submissions for management.");
+  }
+
+  return response.json();
+}
+
+export async function updateManageWeeklySubmission(
+  id: number,
+  payload: {
+    title: string;
+    description: string;
+    hoursSpent: number;
+    date: string;
+    image: string;
+  },
+) {
+  const response = await fetch(`/api/weekly/manage/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to update weekly submission.");
+  }
+
+  return data;
+}
+
 
 /* ---------------------------------- */
 /* Monthly Reviews                    */
