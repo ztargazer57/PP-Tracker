@@ -426,7 +426,59 @@ export async function fetchManageWeeklySubmissions() {
   return response.json();
 }
 
-export async function updateManageWeeklySubmission(
+export async function getManageWeeklySubmissionsPaginated(
+  page = 1,
+  pageSize = 10,
+) {
+  await ensureWeeklySubmissionRecords();
+
+  const safePage = Math.max(1, Number(page) || 1);
+  const safePageSize = Math.max(1, Math.min(50, Number(pageSize) || 10));
+  const skip = (safePage - 1) * safePageSize;
+
+  const [items, total, completedCount, missingCount] = await Promise.all([
+    prisma.weeklySubmission.findMany({
+      orderBy: [{ year: "desc" }, { weekNumber: "desc" }],
+      skip,
+      take: safePageSize,
+    }),
+    prisma.weeklySubmission.count(),
+    prisma.weeklySubmission.count({
+      where: {
+        OR: [
+          { title: { not: null } },
+          { description: { not: null } },
+          { image: { not: null } },
+          { hoursSpent: { not: null } },
+        ],
+      },
+    }),
+    prisma.weeklySubmission.count({
+      where: {
+        title: null,
+        description: null,
+        image: null,
+        hoursSpent: null,
+      },
+    }),
+  ]);
+
+  const totalPages = Math.max(1, Math.ceil(total / safePageSize));
+
+  return {
+    items,
+    meta: {
+      page: safePage,
+      pageSize: safePageSize,
+      total,
+      totalPages,
+      completedCount,
+      missingCount,
+    },
+  };
+}
+
+export async function updateManageWeeklySubmissionById(
   id: number,
   payload: {
     title: string;
@@ -436,23 +488,26 @@ export async function updateManageWeeklySubmission(
     image: string;
   },
 ) {
-  const response = await fetch(`/api/weekly/manage/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || "Failed to update weekly submission.");
+  if (!id || Number.isNaN(id)) {
+    throw new Error("Invalid weekly submission id.");
   }
 
-  return data;
-}
+  const updated = await prisma.weeklySubmission.update({
+    where: { id },
+    data: {
+      title: payload.title.trim() || null,
+      description: payload.description.trim() || null,
+      image: payload.image.trim() || null,
+      hoursSpent:
+        payload.hoursSpent === null || Number.isNaN(Number(payload.hoursSpent))
+          ? null
+          : Number(payload.hoursSpent),
+      date: new Date(payload.date),
+    },
+  });
 
+  return updated;
+}
 
 /* ---------------------------------- */
 /* Monthly Reviews                    */

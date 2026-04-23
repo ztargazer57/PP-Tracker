@@ -1,9 +1,15 @@
-import { NextResponse } from "next/server";
-import { getManageWeeklySubmissions } from "@/lib/logic";
+import { NextRequest, NextResponse } from "next/server";
+import { getManageWeeklySubmissionsPaginated } from "@/lib/logic";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const data = await getManageWeeklySubmissions();
+    const searchParams = request.nextUrl.searchParams;
+
+    const page = Number(searchParams.get("page") ?? "1");
+    const pageSize = Number(searchParams.get("pageSize") ?? "10");
+
+    const data = await getManageWeeklySubmissionsPaginated(page, pageSize);
+
     return NextResponse.json(data);
   } catch (error) {
     console.error("Failed to fetch manageable weekly submissions:", error);

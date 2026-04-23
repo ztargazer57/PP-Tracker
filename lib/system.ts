@@ -91,11 +91,17 @@ export async function getRandomWeeklySubmissions() {
 
 // Weekly Manage
 
-export async function fetchManageWeeklySubmissions() {
-  const response = await fetch("/api/weekly/manage", {
-    method: "GET",
-    cache: "no-store",
-  });
+export async function fetchManageWeeklySubmissions(
+  page = 1,
+  pageSize = 10,
+) {
+  const response = await fetch(
+    `/api/weekly/manage?page=${page}&pageSize=${pageSize}`,
+    {
+      method: "GET",
+      cache: "no-store",
+    },
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch weekly submissions for management.");
