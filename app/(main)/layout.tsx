@@ -8,12 +8,12 @@ export default function MainLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-[calc(100vh-128px)]">
       <FloatingSidebar />
 
       <Navbar />
 
-      <main className="min-h-[calc(100vh-64px)] px-4 pt-4 pb-18 lg:px-40 lg:pb-6">
+      <main className=" px-4 pb-18 lg:px-50 lg:pb-6">
         {children}
       </main>
     </div>
