@@ -57,7 +57,7 @@ export default async function GalleryPage() {
         </div>
 
         {grouped.length === 0 ? (
-          <Card className="p-6">
+          <Card className="p-6 flex mx-auto justify-center">
             <p>No submissions yet.</p>
           </Card>
         ) : (
@@ -72,18 +72,15 @@ export default async function GalleryPage() {
                       <img
                         src={submission.image}
                         alt={submission.title ?? "Submission image"}
-                        className="h-64 w-full object-cover"
+                        className="h-72 w-full object-cover"
                       />
                     ) : (
-                      <div className="h-64 w-full bg-muted flex items-center justify-center text-sm text-muted-foreground">
+                      <div className="h-72 w-full bg-muted flex items-center justify-center text-sm text-muted-foreground">
                         No image
                       </div>
                     )}
 
-                    <div className="space-y-2 p-4">
-                      <p className="text-xs text-muted-foreground">
-                        {formatDisplayDate(submission.date)}
-                      </p>
+                    <div className="space-y-0 pb-2 px-4">
 
                       <h3 className="text-lg font-semibold line-clamp-1">
                         {submission.title || "Untitled"}
@@ -96,7 +93,9 @@ export default async function GalleryPage() {
                       )}
 
                       <div className="flex items-center justify-between text-sm">
-                        <span>Week {submission.weekNumber}</span>
+                        <span className="text-xs text-muted-foreground">
+                        {formatDisplayDate(submission.date)}
+                        </span>
                         {submission.hoursSpent != null && (
                           <span>{submission.hoursSpent} hrs</span>
                         )}

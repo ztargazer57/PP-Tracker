@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "./ui/button";
 
 type Submission = {
   id: number;
@@ -93,7 +94,7 @@ export default function GalleryCoverPickerDialog({
                     key={submission.id}
                     type="button"
                     onClick={() => setSelected(submission.image || "")}
-                    className={`overflow-hidden rounded-xl border transition-all ${
+                    className={` rounded-xl border transition-all ${
                       active
                         ? "border-orange-400 ring-2 ring-orange-400"
                         : "border-zinc-700"
@@ -102,7 +103,7 @@ export default function GalleryCoverPickerDialog({
                     <img
                       src={submission.image || ""}
                       alt={submission.title || "Submission"}
-                      className="h-40 w-full object-cover"
+                      className="h-24 w-full object-cover"
                     />
                   </button>
                 );
@@ -111,14 +112,14 @@ export default function GalleryCoverPickerDialog({
           )}
 
           <div className="flex justify-end">
-            <button
+            <Button
               type="button"
               onClick={handleSave}
               disabled={!selected || saving}
-              className="rounded-lg bg-orange-400 px-4 py-2 text-black font-medium disabled:opacity-50"
+              className="text-black font-medium disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save Cover"}
-            </button>
+            </Button>
           </div>
         </div>
       </DialogContent>

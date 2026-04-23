@@ -310,9 +310,35 @@ export default function WeeklySubmissionsManageClient() {
 
   if (loading) {
     return (
-      <div className="space-y-4">
-        <div className="h-24 animate-pulse rounded-2xl border border-border bg-card" />
-        <div className="h-96 animate-pulse rounded-2xl border border-border bg-card" />
+      <div className="space-y-6">
+        <div className="p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+                Manage Weekly Submissions
+              </h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Review, edit, and backfill weekly entries.
+              </p>
+            </div>
+
+            <Link href="/weeklySubmissions">
+              <Button
+                variant="outline"
+                className="gap-2 border-border bg-background text-foreground hover:bg-accent"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to Weekly
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
+            <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
+            <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
+        </div>
+        <div className="h-155 animate-pulse rounded-2xl border border-border bg-card" />
       </div>
     );
   }
@@ -515,8 +541,9 @@ export default function WeeklySubmissionsManageClient() {
         <div className="border-t border-border px-4 py-4 sm:px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted-foreground">
-              Showing <span className="font-medium text-foreground">{startRow}</span>{" "}
-              to <span className="font-medium text-foreground">{endRow}</span> of{" "}
+              Showing{" "}
+              <span className="font-medium text-foreground">{startRow}</span> to{" "}
+              <span className="font-medium text-foreground">{endRow}</span> of{" "}
               <span className="font-medium text-foreground">{meta.total}</span>{" "}
               submissions
             </p>
@@ -768,7 +795,7 @@ export default function WeeklySubmissionsManageClient() {
                                 <div className="space-y-2">
                                   <label
                                     htmlFor="manage-image-upload"
-                                    className="inline-flex w-full cursor-pointer items-center justify-center rounded-md border border-border bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground transition hover:bg-secondary/80 sm:w-auto"
+                                    className="flex w-full cursor-pointer items-center justify-center rounded-md border border-border bg-secondary px-3 py-2 items-center text-sm font-medium text-secondary-foreground transition hover:bg-secondary/80 sm:w-auto"
                                   >
                                     Upload image
                                   </label>
@@ -787,7 +814,9 @@ export default function WeeklySubmissionsManageClient() {
                                       }
 
                                       if (file) {
-                                        setPreviewUrl(URL.createObjectURL(file));
+                                        setPreviewUrl(
+                                          URL.createObjectURL(file),
+                                        );
                                       } else {
                                         setPreviewUrl(null);
                                       }
@@ -803,7 +832,7 @@ export default function WeeklySubmissionsManageClient() {
                             )}
                           />
 
-                          <div className="flex w-full gap-3 sm:w-auto">
+                          <div className="flex ml-auto w-full gap-3 sm:w-auto">
                             <Button
                               type="button"
                               variant="outline"
