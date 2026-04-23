@@ -260,7 +260,7 @@ export default function WeeklySubmissionsManageClient() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+      <div className=" rounded-2xl border border-border bg-card shadow-sm md:overflow-hidden lg:overflow-hidden">
         <div className="border-b border-border px-6 py-4">
           <h2 className="text-lg font-semibold text-foreground">Submission Table</h2>
           <p className="text-sm text-muted-foreground">
