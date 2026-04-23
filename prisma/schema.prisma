@@ -8,18 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String?
-  createdAt DateTime @default(now())
-}
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password     String
+  name         String?
+  createdAt    DateTime @default(now())
 
-model Extra {
-  id     Int     @id @default(autoincrement())
-  note   String?
-  streak Int?
-  picUrl String?
+  note         String?
+  streak       Int?
+  picUrl       String?
+
+  savingsTotal Decimal  @default(0)
 }
 
 model SavingsEntry {

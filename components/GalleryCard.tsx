@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { fetchGalleryCover } from "@/lib/system";
 import GalleryCoverPickerDialog from "@/components/GalleryCoverPickerDialog";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 export default function GalleryCard() {
   const [cover, setCover] = useState<string>("");
@@ -12,7 +13,7 @@ export default function GalleryCard() {
   async function loadCover() {
     try {
       const data = await fetchGalleryCover();
-      setCover(data?.picUrl || "");
+      setCover(getCloudinaryImageUrl(data?.picUrl || ""));
     } catch (error) {
       console.error("Failed to load gallery cover:", error);
     }

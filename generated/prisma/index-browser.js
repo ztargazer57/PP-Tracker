@@ -125,14 +125,11 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   name: 'name',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.ExtraScalarFieldEnum = {
-  id: 'id',
+  createdAt: 'createdAt',
   note: 'note',
   streak: 'streak',
-  picUrl: 'picUrl'
+  picUrl: 'picUrl',
+  savingsTotal: 'savingsTotal'
 };
 
 exports.Prisma.SavingsEntryScalarFieldEnum = {
@@ -187,7 +184,6 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Extra: 'Extra',
   SavingsEntry: 'SavingsEntry',
   DailyRoutine: 'DailyRoutine',
   WeeklySubmission: 'WeeklySubmission',

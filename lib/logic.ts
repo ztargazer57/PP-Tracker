@@ -640,14 +640,8 @@ export async function selectAsBest(selectedId: number) {
 /* ---------------------------------- */
 
 export async function getGalleryCover() {
-  const data = await prisma.extra.upsert({
+  const data = await prisma.user.findUnique({
     where: { id: 1 },
-    create: {
-      id: 1,
-      note: "",
-      picUrl: "",
-    },
-    update: {},
     select: {
       picUrl: true,
     },
@@ -657,14 +651,9 @@ export async function getGalleryCover() {
 }
 
 export async function setGalleryCover(picUrl: string) {
-  const data = await prisma.extra.upsert({
+  const data = await prisma.user.update({
     where: { id: 1 },
-    create: {
-      id: 1,
-      note: "",
-      picUrl,
-    },
-    update: {
+    data: {
       picUrl,
     },
     select: {
@@ -676,32 +665,23 @@ export async function setGalleryCover(picUrl: string) {
 }
 
 export async function fetchNotes() {
-  const data = await prisma.extra.upsert({
-    where: {
-      id: 1,
-    },
-    create: {
-      id: 1,
-      note: "",
-    },
-    update: {},
+  const data = await prisma.user.findUnique({
+    where: {id: 1},
+    select: { note: true }
   });
 
   return data;
 }
 
 export async function postNotes(note: string) {
-  const data = await prisma.extra.upsert({
+  const data = await prisma.user.update({
     where: {
       id: 1,
     },
-    create: {
-      id: 1,
+    data: {
       note,
     },
-    update: {
-      note,
-    },
+    select: { note: true }
   });
 
   return data;

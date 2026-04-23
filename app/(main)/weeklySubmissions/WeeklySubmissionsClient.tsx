@@ -22,6 +22,7 @@ import {
   fetchWeeklySubmissionStatus,
 } from "@/lib/system";
 import { ManageWeeklySubmissionsButton } from "@/components/ManageWeeklySubmissionsButton";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 type WeeklySubmissionData = {
   title?: string | null;
@@ -89,30 +90,34 @@ export default function WeeklySubmissionsClient() {
   }
 
   async function uploadToCloudinary(file: File) {
-  const formData = new FormData();
-  formData.append("file", file);
+    const formData = new FormData();
+    formData.append("file", file);
 
-  const response = await fetch("/api/cloudinary/upload", {
-    method: "POST",
-    body: formData,
-  });
+    const response = await fetch("/api/cloudinary/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-  const result = await response.json();
+    const result = await response.json();
 
-  if (!response.ok) {
-    throw new Error(result.error || "Failed to upload image.");
+    if (!response.ok) {
+      throw new Error(result.error || "Failed to upload image.");
+    }
+
+    return {
+      publicId: result.public_id as string,
+      secureUrl: result.secure_url as string,
+    };
   }
-
-  return result.secure_url as string;
-}
   async function onSubmit(data: z.infer<typeof weeklySubmissionFormSchema>) {
     try {
       setSaving(true);
 
-      let imageUrl = existingImage ?? "";
+      let imageValue = existingImage ?? "";
 
       if (data.image instanceof File) {
-        imageUrl = await uploadToCloudinary(data.image);
+        const uploadResult = await uploadToCloudinary(data.image);
+        imageValue = uploadResult.publicId;
       }
 
       const formData = new FormData();
@@ -121,11 +126,11 @@ export default function WeeklySubmissionsClient() {
       formData.append("hoursSpent", String(data.hoursSpent));
       formData.append("date", new Date(data.date).toISOString());
       formData.append("weekNumber", String(data.weekNumber ?? ""));
-      formData.append("image", imageUrl);
+      formData.append("image", imageValue);
 
       await fetchWeeklySubmissionsSubmit(formData);
 
-      setExistingImage(imageUrl);
+      setExistingImage(imageValue);
       setPreviewUrl(null);
       form.setValue("image", undefined);
     } catch (error) {
@@ -136,7 +141,8 @@ export default function WeeklySubmissionsClient() {
     }
   }
 
-  const displayImage = previewUrl || existingImage;
+
+const displayImage = previewUrl || getCloudinaryImageUrl(existingImage);
 
   if (loading) {
     return <>Loading...</>;
@@ -146,7 +152,9 @@ export default function WeeklySubmissionsClient() {
     <div>
       <div className="py-3 w-full flex">
         <h1 className="text-2xl">Submissions</h1>
-        <div className="ml-auto"><ManageWeeklySubmissionsButton/></div>
+        <div className="ml-auto">
+          <ManageWeeklySubmissionsButton />
+        </div>
       </div>
 
       <div className="min-w-full">

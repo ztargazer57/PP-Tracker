@@ -233,7 +233,20 @@ export async function fetchPostNotes(notes: string) {
 
 // Savings
 
-export async function fetchSavings() {
+export type SavingsEntry = {
+  id: number;
+  amount: number;
+  note?: string | null;
+  createdAt: string;
+  userId: number;
+};
+
+export type SavingsResponse = {
+  total: number;
+  entries: SavingsEntry[];
+};
+
+export async function fetchSavings(): Promise<SavingsResponse> {
   const res = await fetch("/api/savings", {
     method: "GET",
     cache: "no-store",
@@ -246,7 +259,14 @@ export async function fetchSavings() {
   return res.json();
 }
 
-export async function createSavingsEntry(amount: number, note?: string) {
+export async function createSavingsEntry(
+  amount: number,
+  note?: string
+): Promise<{
+  entry: SavingsEntry;
+  total: number;
+  entries: SavingsEntry[];
+}> {
   const res = await fetch("/api/savings", {
     method: "POST",
     headers: {

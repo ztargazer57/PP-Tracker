@@ -1,16 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createSavingsEntry, fetchSavings } from "@/lib/system";
+import { createSavingsEntry, fetchSavings, type SavingsEntry } from "@/lib/system";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-
-type SavingsEntry = {
-  id: number;
-  amount: number;
-  note?: string | null;
-  createdAt: string;
-};
 
 function animateValue(
   from: number,
@@ -95,8 +88,7 @@ export default function SavingsWidget() {
       const data = await createSavingsEntry(parsedAmount);
 
       setTotal(Number(data.total ?? 0));
-      setEntries((prev) => [data.entry, ...prev]);
-
+      setEntries(data.entries ?? []);
       setInput("");
     } catch (error) {
       console.error("Failed to save savings entry:", error);
@@ -111,39 +103,40 @@ export default function SavingsWidget() {
   });
 
   return (
-    <div className="w-full min-h-full min-w-fit mx-auto space-y-4 grid grid-cols-2 p-4">
-        <div className="p-5">
-            <h1 className="text-xl">Akong Natigom</h1>
-        <div className="text-4xl font-bold text-emerald-400 mt-8">
+    <div className="mx-auto grid min-h-full min-w-fit w-full grid-cols-2 space-y-4 p-4">
+      <div className="p-5">
+        <h1 className="text-xl">Akong Natigom</h1>
+
+        <div className="mt-8 text-4xl font-bold text-emerald-400">
           {loading ? "..." : formattedDisplayTotal}
         </div>
 
-      <div className="flex gap-2 w-fit mt-8">
-        <Input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSubmit();
-            }
-          }}
-          placeholder="Enter amount"
-          inputMode="decimal"
-        />
-        <Button
-          type="button"
-          onClick={handleSubmit}
-          disabled={saving || parsedAmount === null}
-        >
-          {saving ? "Saving..." : "Add"}
-        </Button>
-      </div>
+        <div className="mt-8 flex w-fit gap-2">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit();
+              }
+            }}
+            placeholder="Enter amount"
+            inputMode="decimal"
+          />
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            disabled={saving || parsedAmount === null}
+          >
+            {saving ? "Saving..." : "Add"}
+          </Button>
         </div>
+      </div>
 
       <div className="space-y-2">
         <h2 className="text-sm font-medium">Recent Entries</h2>
 
-        <div className="max-h-60 overflow-auto space-y-2">
+        <div className="max-h-60 space-y-2 overflow-auto">
           {entries.map((entry) => (
             <div
               key={entry.id}
@@ -167,7 +160,7 @@ export default function SavingsWidget() {
           ))}
 
           {!loading && entries.length === 0 && (
-            <div className="text-sm text-muted-foreground text-center py-4">
+            <div className="py-4 text-center text-sm text-muted-foreground">
               No savings entries yet.
             </div>
           )}

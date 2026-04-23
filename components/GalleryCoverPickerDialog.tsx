@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 type Submission = {
   id: number;
@@ -101,7 +102,7 @@ export default function GalleryCoverPickerDialog({
                     }`}
                   >
                     <img
-                      src={submission.image || ""}
+                      src={getCloudinaryImageUrl(submission.image || "")}
                       alt={submission.title || "Submission"}
                       className="h-24 w-full object-cover"
                     />

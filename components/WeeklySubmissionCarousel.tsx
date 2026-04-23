@@ -9,6 +9,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { getRandomWeeklySubmissions } from "@/lib/system";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 export function CarouselSize() {
   const [items, setItems] = React.useState<any[]>([]);
@@ -47,7 +48,7 @@ export function CarouselSize() {
                 <CardContent className="flex flex-col w-fit h-fit p-0 overflow-hidden">
                   {item.image ? (
                     <img
-                      src={item.image}
+                      src={getCloudinaryImageUrl(item.image)}
                       alt={item.title || "Submission"}
                       className="w-80 h-60 object-cover hover:scale-105 transition-all duration-300"
                     />

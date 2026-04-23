@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { getBestPieces } from "@/lib/system";
 import { useEffect, useMemo, useState } from "react";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 const monthlyCards = [
   { id: 1, month: "January" },
@@ -93,7 +94,7 @@ export default function MonthlyReviewsClient() {
                 {piece?.image ? (
                   <>
                     <img
-                      src={piece.image}
+                      src={getCloudinaryImageUrl(piece.image)}
                       alt={piece.title || month.month}
                       className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                     />

@@ -3,6 +3,7 @@
 import { getBestPieceByMonth, selectAsBestPiece } from "@/lib/system";
 import { useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 const breakpointColumnsObj = {
   default: 5,
@@ -81,7 +82,7 @@ export default function MasonryGrid({
         >
           {item.image && (
             <img
-              src={item.image}
+              src={getCloudinaryImageUrl(item.image)}
               alt={item.title || "Submission image"}
               className="h-auto w-full object-cover"
             />

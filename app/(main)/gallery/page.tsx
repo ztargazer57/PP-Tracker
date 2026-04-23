@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { getAllWeeklySubmissions } from "@/lib/logic";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 export const dynamic = "force-dynamic";
 
@@ -70,7 +71,7 @@ export default async function GalleryPage() {
                   <Card key={submission.id} className="overflow-hidden p-0">
                     {submission.image ? (
                       <img
-                        src={submission.image}
+                        src={getCloudinaryImageUrl(submission.image)}
                         alt={submission.title ?? "Submission image"}
                         className="h-72 w-full object-cover"
                       />
