@@ -335,9 +335,9 @@ export default function WeeklySubmissionsManageClient() {
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
-            <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
-            <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
+          <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
+          <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
+          <div className="h-26 animate-pulse rounded-2xl border border-border bg-card" />
         </div>
         <div className="h-155 animate-pulse rounded-2xl border border-border bg-card" />
       </div>
@@ -775,7 +775,11 @@ export default function WeeklySubmissionsManageClient() {
                           <div className="flex min-h-[220px] items-center justify-center rounded-xl border border-dashed border-border bg-muted/30 p-3 sm:min-h-[360px]">
                             {displayImage ? (
                               <img
-                                src={getCloudinaryImageUrl(displayImage)}
+                                src={
+                                  displayImage.startsWith("blob:")
+                                    ? displayImage
+                                    : getCloudinaryImageUrl(displayImage)
+                                }
                                 alt="Preview"
                                 className="max-h-[220px] w-auto rounded-xl border border-border object-cover shadow-sm sm:max-h-[360px]"
                               />
