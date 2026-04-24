@@ -31,6 +31,7 @@ import {
   fetchManageWeeklySubmissions,
   updateManageWeeklySubmission,
 } from "@/lib/system";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 
 type WeeklySubmissionRow = {
   id: number;
@@ -774,7 +775,7 @@ export default function WeeklySubmissionsManageClient() {
                           <div className="flex min-h-[220px] items-center justify-center rounded-xl border border-dashed border-border bg-muted/30 p-3 sm:min-h-[360px]">
                             {displayImage ? (
                               <img
-                                src={displayImage}
+                                src={getCloudinaryImageUrl(displayImage)}
                                 alt="Preview"
                                 className="max-h-[220px] w-auto rounded-xl border border-border object-cover shadow-sm sm:max-h-[360px]"
                               />
