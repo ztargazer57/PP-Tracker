@@ -138,7 +138,7 @@ export function DailyRoutineHistory() {
                     className={`h-3 w-full rounded-l-full rounded-r-xs shadow-7xl ${
                       record.gestureDrawing
                         ? "bg-green-500/50"
-                        : "bg-red-500/50"
+                        : "bg-white/10"
                     }`}
                   />
                 </div>
@@ -150,7 +150,7 @@ export function DailyRoutineHistory() {
                     className={`h-3 w-full rounded-xs shadow-7xl ${
                       record.construction
                         ? "bg-green-500/50"
-                        : "bg-red-500/50"
+                        : "bg-white/10"
                     }`}
                   />
                 </div>
@@ -162,7 +162,7 @@ export function DailyRoutineHistory() {
                     className={`h-3 w-full rounded-r-full rounded-l-xs shadow-7xl ${
                       record.targetedPractice
                         ? "bg-green-500/50"
-                        : "bg-red-500/50"
+                        : "bg-white/10"
                     }`}
                   />
                 </div>
