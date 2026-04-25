@@ -3,6 +3,11 @@ import { prisma } from "@/lib/prisma";
 /* ---------------------------------- */
 /* Helpers                            */
 /* ---------------------------------- */
+function startOfYesterday(date = new Date()) {
+  const d = startOfDay(date);
+  d.setDate(d.getDate() - 1);
+  return d;
+}
 
 function startOfDay(date = new Date()) {
   const d = new Date(date);
@@ -143,7 +148,7 @@ export async function getDailyRoutineStatus() {
 export async function getDailyRoutineHistory() {
   await ensureDailyRoutineRecords();
 
-  const today = startOfDay();
+  const today = startOfYesterday();
 
   const data = await prisma.dailyRoutine.findMany({
     take: 12,
