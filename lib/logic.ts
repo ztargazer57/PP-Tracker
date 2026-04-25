@@ -3,35 +3,107 @@ import { prisma } from "@/lib/prisma";
 /* ---------------------------------- */
 /* Helpers                            */
 /* ---------------------------------- */
-function startOfYesterday(date = new Date()) {
-  const d = startOfDay(date);
-  d.setDate(d.getDate() - 1);
-  return d;
+const APP_TIME_ZONE = "Asia/Manila";
+
+function getTZParts(date: Date, timeZone = APP_TIME_ZONE) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+
+  const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
+
+  return {
+    year: get("year"),
+    month: get("month"),
+    day: get("day"),
+    hour: get("hour"),
+    minute: get("minute"),
+    second: get("second"),
+  };
+}
+
+function getTZOffsetMs(date: Date, timeZone = APP_TIME_ZONE) {
+  const p = getTZParts(date, timeZone);
+  const asUTC = Date.UTC(
+    p.year,
+    p.month - 1,
+    p.day,
+    p.hour,
+    p.minute,
+    p.second,
+  );
+
+  return asUTC - date.getTime();
+}
+
+function zonedDateToUTC(
+  year: number,
+  month: number,
+  day: number,
+  hour = 0,
+  minute = 0,
+  second = 0,
+  ms = 0,
+  timeZone = APP_TIME_ZONE,
+) {
+  const guess = new Date(Date.UTC(year, month - 1, day, hour, minute, second, ms));
+  const offset = getTZOffsetMs(guess, timeZone);
+  const result = new Date(guess.getTime() - offset);
+
+  const correctedOffset = getTZOffsetMs(result, timeZone);
+  return new Date(guess.getTime() - correctedOffset);
 }
 
 function startOfDay(date = new Date()) {
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  return d;
+  const p = getTZParts(date);
+  return zonedDateToUTC(p.year, p.month, p.day);
+}
+
+function startOfYesterday(date = new Date()) {
+  return addDays(startOfDay(date), -1);
 }
 
 function startOfTomorrow(date = new Date()) {
-  const d = startOfDay(date);
-  d.setDate(d.getDate() + 1);
-  return d;
+  return addDays(startOfDay(date), 1);
 }
 
 function addDays(date: Date, days: number) {
-  const d = new Date(date);
-  d.setDate(d.getDate() + days);
-  return d;
+  const p = getTZParts(date);
+  const utc = new Date(Date.UTC(p.year, p.month - 1, p.day + days));
+  const next = getTZParts(utc);
+  return zonedDateToUTC(next.year, next.month, next.day);
 }
 
 function formatDateKey(date: Date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+  const p = getTZParts(date);
+  return `${p.year}-${String(p.month).padStart(2, "0")}-${String(p.day).padStart(2, "0")}`;
+}
+
+function parseAppDate(date: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+
+  if (match) {
+    return zonedDateToUTC(
+      Number(match[1]),
+      Number(match[2]),
+      Number(match[3]),
+    );
+  }
+
+  const parsed = new Date(date);
+
+  if (Number.isNaN(parsed.getTime())) {
+    throw new Error("Invalid date.");
+  }
+
+  return parsed;
 }
 
 function getISOWeekInfo(date: Date) {
@@ -148,7 +220,7 @@ export async function getDailyRoutineStatus() {
 export async function getDailyRoutineHistory() {
   await ensureDailyRoutineRecords();
 
-  const today = startOfYesterday();
+  const today = startOfDay();
 
   const data = await prisma.dailyRoutine.findMany({
     take: 12,
@@ -289,7 +361,7 @@ export async function postWeeklySubmission(
   date: string,
   image: string,
 ) {
-  const submissionDate = new Date(date);
+  const submissionDate = parseAppDate(date);
   const { isoYear, weekNumber } = getISOWeekInfo(submissionDate);
 
   const data = await prisma.weeklySubmission.upsert({
@@ -341,7 +413,7 @@ export async function updateWeeklySubmissionById(
     image: string;
   },
 ) {
-  const submissionDate = new Date(payload.date);
+  const submissionDate = parseAppDate(payload.date);
 
   if (Number.isNaN(submissionDate.getTime())) {
     throw new Error("Invalid submission date.");
@@ -507,7 +579,7 @@ export async function updateManageWeeklySubmissionById(
         payload.hoursSpent === null || Number.isNaN(Number(payload.hoursSpent))
           ? null
           : Number(payload.hoursSpent),
-      date: new Date(payload.date),
+      date: parseAppDate(payload.date),
     },
   });
 
@@ -613,7 +685,7 @@ export async function selectAsBest(selectedId: number) {
     throw new Error("Submission not found.");
   }
 
-  const month = new Date(submission.date).getMonth() + 1;
+  const month = getTZParts(submission.date).month;
   const year = submission.year;
 
   await prisma.monthlyReview.upsert({
