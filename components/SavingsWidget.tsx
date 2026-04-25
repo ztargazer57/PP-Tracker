@@ -104,14 +104,14 @@ export default function SavingsWidget() {
 
   return (
     <div className="mx-auto grid min-h-full min-w-fit w-full grid-cols-2 space-y-4 p-4">
-      <div className="p-5">
+      <div className="p-1 md:p-3 lg:p-5">
         <h1 className="text-xl">Akong Natigom</h1>
 
         <div className="mt-8 text-4xl font-bold text-emerald-400">
           {loading ? "..." : formattedDisplayTotal}
         </div>
 
-        <div className="mt-8 flex w-fit gap-2">
+        <div className="mt-8 grid grid-cols-1 w-fit gap-2 md:grid-cols-2 lg:grid-cols-1">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -125,6 +125,7 @@ export default function SavingsWidget() {
           />
           <Button
             type="button"
+            className="max-w-20"
             onClick={handleSubmit}
             disabled={saving || parsedAmount === null}
           >
