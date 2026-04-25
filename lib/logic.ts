@@ -148,7 +148,7 @@ export async function getDailyRoutineStatus() {
 export async function getDailyRoutineHistory() {
   await ensureDailyRoutineRecords();
 
-  const today = startOfDay();
+  const today = startOfYesterday();
 
   const data = await prisma.dailyRoutine.findMany({
     take: 12,
