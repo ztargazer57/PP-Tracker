@@ -150,6 +150,7 @@ export async function ensureDailyRoutineRecords(daysToBackfill = 30) {
   const today = startOfDay();
   const start = addDays(today, -(daysToBackfill - 1));
   const tomorrow = startOfTomorrow();
+  await cleanupUnusedDailyRecords();
 
   const existing = await prisma.dailyRoutine.findMany({
     where: {
@@ -270,6 +271,33 @@ export async function postDailyRoutineUpdate(
   return await prisma.dailyRoutine.update({
     where: { id: existing.id },
     data: { [field]: value },
+  });
+}
+
+export async function cleanupUnusedDailyRecords(
+  editableDays = 30,
+  hardLimitDays = 90
+) {
+  const today = startOfDay();
+
+  const editableCutoff = addDays(today, -editableDays);
+  const hardCutoff = addDays(today, -hardLimitDays);
+
+  await prisma.dailyRoutine.deleteMany({
+    where: {
+      AND: [
+        {
+          date: {
+            lt: hardCutoff,
+          },
+        },
+        {
+          gestureDrawing: false,
+          construction: false,
+          targetedPractice: false,
+        },
+      ],
+    },
   });
 }
 

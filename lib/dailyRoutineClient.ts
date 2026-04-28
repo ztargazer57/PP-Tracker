@@ -24,20 +24,30 @@ export function subscribeToDailyRoutineUpdates(callback: () => void) {
   };
 }
 
+/* ================================
+   ✅ NEW: forgiving completion rule
+================================ */
 export function isRoutineCompleted(record: DailyRoutineRecord) {
-  return (
-    record.gestureDrawing &&
-    record.construction &&
-    record.targetedPractice
-  );
+  let count = 0;
+
+  if (record.gestureDrawing) count++;
+  if (record.construction) count++;
+  if (record.targetedPractice) count++;
+
+  return count >= 2; // 🔥 changed from 3 → 2
 }
 
 /**
- * Extracts a stable YYYY-MM-DD key from API/DB date strings.
- * Works best when your backend returns ISO strings.
+ * Extract YYYY-MM-DD safely
  */
 export function getRecordDateKey(dateString: string) {
-  return dateString.slice(0, 10);
+  const date = new Date(dateString);
+
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+
+  return `${y}-${m}-${d}`;
 }
 
 export function getLocalTodayKey() {
@@ -60,17 +70,23 @@ export function shiftDateKey(dateKey: string, days: number) {
   return `${y}-${m}-${d}`;
 }
 
+/* ================================
+   🔥 FIXED STREAK LOGIC
+================================ */
 export function calculateStreak(records: DailyRoutineRecord[]) {
   const completedDays = new Set(
-    records.filter(isRoutineCompleted).map((record) => getRecordDateKey(record.date))
+    records
+      .filter(isRoutineCompleted)
+      .map((record) => getRecordDateKey(record.date))
   );
 
   let streak = 0;
-  let cursor = getLocalTodayKey();
+  let today = getLocalTodayKey();
 
-  if (!completedDays.has(cursor)) {
-    cursor = shiftDateKey(cursor, -1);
-  }
+  // 👇 If today is NOT completed → don't break streak
+  let cursor = completedDays.has(today)
+    ? today
+    : shiftDateKey(today, -1);
 
   while (completedDays.has(cursor)) {
     streak++;

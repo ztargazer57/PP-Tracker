@@ -18,23 +18,20 @@ export default function Streak() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadStreak = useCallback(async (isManualRefresh = false) => {
+  const loadStreak = useCallback(async (manual = false) => {
     try {
-      if (isManualRefresh) {
-        setRefreshing(true);
-      } else {
-        setLoading(true);
-      }
+      manual ? setRefreshing(true) : setLoading(true);
 
       const [today, history] = await Promise.all([
         fetchDailyRoutineStatus(),
         fetchDailyRoutineHistory(),
       ]);
 
-      const allRecords: DailyRoutineRecord[] = [today, ...history];
-      setStreak(calculateStreak(allRecords));
-    } catch (error) {
-      console.error("Failed to load streak:", error);
+      const records: DailyRoutineRecord[] = [today, ...history];
+
+      setStreak(calculateStreak(records));
+    } catch (err) {
+      console.error(err);
       setStreak(0);
     } finally {
       setLoading(false);
@@ -51,7 +48,7 @@ export default function Streak() {
   }, [loadStreak]);
 
   return (
-    <div className="flex justify-center items-center gap-5 h-fit w-fit mt-2 mx-auto">
+    <div className="flex justify-center items-center gap-5 mt-2">
       <h1 className="text-2xl">Streak:</h1>
 
       <span className="text-7xl text-orange-400">
